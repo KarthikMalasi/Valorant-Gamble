@@ -11,7 +11,7 @@ Enter your available Credits, choose your Agent, and let the Buy Gamble decide w
 
 ## 📸 Preview
 
-![VALORANT Gamble Preview](./preview.png)
+![VALORANT Gamble Preview](./image.png)
 
 
 

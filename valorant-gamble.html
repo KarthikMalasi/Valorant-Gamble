@@ -1,1113 +1,2241 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>VALORANT GAMBLE</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --void:#05070a;
-  --panel:#0c1017;
-  --panel-alt:#121822;
-  --panel-raised:#161d29;
-  --line:#232c39;
-  --line-bright:#3a4557;
-  --red:#ff4655;
-  --red-dim:rgba(255,70,85,.16);
-  --red-glow:rgba(255,70,85,.55);
-  --cyan:#5ce1e6;
-  --cyan-dim:rgba(92,225,230,.14);
-  --amber:#f2c14e;
-  --violet:#a26bff;
-  --teal:#3ddc84;
-  --text:#ece8e1;
-  --text-dim:#8993a3;
-  --text-faint:#525c6b;
-  --gap:2px;
-}
-*{box-sizing:border-box;}
-html,body{margin:0;padding:0; max-width:100%; overflow-x:hidden;}
-body{
-  background:
-    radial-gradient(ellipse 900px 500px at 15% -10%, rgba(255,70,85,.08), transparent 60%),
-    radial-gradient(ellipse 900px 500px at 90% 110%, rgba(92,225,230,.06), transparent 60%),
-    var(--void);
-  color:var(--text);
-  font-family:'Rajdhani',sans-serif;
-  min-height:100vh;
-  width:100%;
-  -webkit-font-smoothing:antialiased;
-}
-.mono{font-family:'JetBrains Mono',monospace;}
-h1,h2,h3,.display{font-family:'Teko',sans-serif; font-weight:600; letter-spacing:.02em;}
+  <meta charset="UTF-8">
+  <title>VALORANT GAMBLE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --void: #05070a;
+      --panel: #0c1017;
+      --panel-alt: #121822;
+      --panel-raised: #161d29;
+      --line: #232c39;
+      --line-bright: #3a4557;
+      --red: #ff4655;
+      --red-dim: rgba(255, 70, 85, .16);
+      --red-glow: rgba(255, 70, 85, .55);
+      --cyan: #5ce1e6;
+      --cyan-dim: rgba(92, 225, 230, .14);
+      --amber: #f2c14e;
+      --violet: #a26bff;
+      --teal: #3ddc84;
+      --text: #ece8e1;
+      --text-dim: #8993a3;
+      --text-faint: #525c6b;
+      --gap: 2px;
+    }
 
-/* ===== Shell ===== */
-.shell{max-width:1360px;margin:0 auto;padding:18px 22px 60px; width:100%; overflow-x:hidden;}
+    * {
+      box-sizing: border-box;
+    }
 
-/* ===== Top Nav ===== */
-.topnav{
-  display:flex; align-items:center; justify-content:center; gap:var(--gap);
-  margin-bottom:18px;
-}
-.nav-tab{
-  background:var(--panel); border:1px solid var(--line); color:var(--text-dim);
-  font-family:'Teko',sans-serif; font-size:20px; letter-spacing:.12em; font-weight:600;
-  padding:10px 34px; cursor:pointer; text-transform:uppercase; transition:.15s;
-  clip-path:polygon(10px 0,100% 0,100% 100%,0 100%);
-}
-.nav-tab.active{ color:var(--red); background:var(--red-dim); border-color:var(--red); box-shadow:0 0 18px rgba(255,70,85,.18) inset;}
-.nav-tab:not(.active):hover{color:var(--text); border-color:var(--line-bright);}
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
 
-/* ===== Header banner ===== */
-.banner{
-  text-align:center; position:relative; padding:6px 0 16px; margin-bottom:14px;
-}
-.banner .eyebrow{font-size:11px; letter-spacing:.5em; color:var(--red); text-transform:uppercase; font-weight:700;}
-.banner h1{font-size:56px; line-height:.9; margin:2px 0 0; letter-spacing:.05em; text-transform:uppercase;
-  background:linear-gradient(180deg,#fff, #cfd6e0 60%, #8b93a0);
-  -webkit-background-clip:text; background-clip:text; color:transparent;
-  text-shadow:0 0 40px rgba(255,70,85,.15);
-}
-.banner-rule{height:2px; margin-top:10px; background:linear-gradient(90deg, transparent, var(--red) 20%, var(--red) 80%, transparent);
-  clip-path:polygon(0 0, 100% 0, 96% 100%, 4% 100%);}
+    body {
+      background:
+        radial-gradient(ellipse 900px 500px at 15% -10%, rgba(255, 70, 85, .08), transparent 60%),
+        radial-gradient(ellipse 900px 500px at 90% 110%, rgba(92, 225, 230, .06), transparent 60%),
+        var(--void);
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      min-height: 100vh;
+      width: 100%;
+      -webkit-font-smoothing: antialiased;
+    }
 
-/* ===== Page toggle ===== */
-.page{display:none;}
-.page.active{display:block;}
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
 
-/* ===================== BUY PAGE ===================== */
-.topbar{
-  display:grid; grid-template-columns:1fr 1fr; gap:var(--gap);
-  border:1px solid var(--line); margin-bottom:16px; background:var(--panel);
-}
-.agent-card, .credits-card{padding:16px 20px; position:relative;}
-.credits-card{border-left:1px solid var(--line);}
-.card-label{font-size:11px; letter-spacing:.3em; color:var(--text-faint); text-transform:uppercase; font-weight:700;}
-.agent-row{display:flex; align-items:center; gap:14px; margin-top:8px;}
-.agent-portrait{
-  width:64px;height:64px; border:1px solid var(--line-bright); background:var(--panel-alt);
-  display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  clip-path:polygon(12% 0,100% 0,100% 88%,88% 100%,0 100%,0 12%);
-}
-.agent-portrait svg{width:38px;height:38px;}
-.agent-meta h2{font-size:28px; margin:0; letter-spacing:.04em; text-transform:uppercase;}
-.role-tag{font-size:12px; letter-spacing:.15em; text-transform:uppercase; font-weight:700; padding:2px 8px; display:inline-block; margin-top:2px;}
-.agent-select{
-  margin-left:auto; background:var(--panel-alt); border:1px solid var(--line); color:var(--text);
-  font-family:'Rajdhani'; font-weight:600; font-size:14px; padding:8px 10px; cursor:pointer; text-transform:uppercase; letter-spacing:.05em;
-}
-.credits-row{display:flex; align-items:baseline; gap:10px; margin-top:6px;}
-.credits-balance{font-family:'Teko'; font-size:44px; color:var(--red); letter-spacing:.02em;}
-.credits-icon{color:var(--red);}
-.credits-input-wrap{display:flex; align-items:center; gap:8px; margin-top:10px; flex-wrap:wrap;}
-.credits-input-wrap input{
-  background:var(--panel-alt); border:1px solid var(--line); color:var(--text); font-family:'JetBrains Mono';
-  font-size:16px; padding:8px 10px; width:150px; max-width:100%;
-}
-.credits-input-wrap input:focus{outline:none; border-color:var(--red);}
-.quick-credits{display:flex; gap:8px; flex-wrap:wrap;}
-.chip{
-  background:var(--panel-alt); border:1px solid var(--line); color:var(--cyan); font-family:'JetBrains Mono';
-  font-size:13px; padding:7px 12px; cursor:pointer; transition:.12s;
-}
-.chip:hover{border-color:var(--cyan); background:var(--cyan-dim);}
+    h1,
+    h2,
+    h3,
+    .display {
+      font-family: 'Teko', sans-serif;
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
 
-/* ===== Reels grid ===== */
-.reels-wrap{display:flex; align-items:stretch; gap:var(--gap); border:1px solid var(--line); background:var(--panel);}
-.reel-col{flex:1; display:flex; flex-direction:column; min-width:0;}
-.reel-col + .reel-col{border-left:1px solid var(--line);}
-.reel-col-head{
-  text-align:center; padding:10px 0; font-family:'Teko'; font-size:22px; letter-spacing:.25em;
-  text-transform:uppercase; color:var(--text-dim); border-bottom:1px solid var(--line); background:var(--panel-alt);
-}
-.reel-col.weapon .reel-col-head{color:var(--red);}
-.reel-col.ability .reel-col-head{color:var(--amber);}
-.reel-col.shield .reel-col-head{color:var(--cyan);}
+    /* ===== Shell ===== */
+    .shell {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 18px 22px 60px;
+      width: 100%;
+      overflow-x: hidden;
+    }
 
-.reel-window{
-  height:150px; overflow:hidden; position:relative; margin:14px 14px 0;
-  border:1px solid var(--line); background:
-    linear-gradient(180deg, rgba(0,0,0,.55), transparent 20%, transparent 80%, rgba(0,0,0,.55)),
-    var(--void);
-}
-.reel-window.mini{height:96px; margin:8px 14px 0;}
-.reel-track{position:absolute; top:0; left:0; width:100%; will-change:transform;}
-.reel-item{
-  height:150px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding:6px;
-}
-.reel-item.mini{height:96px;}
-.reel-item .item-icon{width:38px; height:38px; opacity:.9;}
-.reel-item.mini .item-icon{width:26px; height:26px;}
-.item-name{font-family:'Teko'; font-size:22px; letter-spacing:.06em; text-transform:uppercase; color:var(--text);}
-.reel-item.mini .item-name{font-size:17px;}
-.item-cost{font-family:'JetBrains Mono'; font-size:12px; color:var(--text-dim);}
-.item-cost.free{color:var(--teal);}
-.item-nothing .item-name{color:var(--text-faint);}
-.reel-window.landed .reel-item:last-child{
-  box-shadow: inset 0 0 30px var(--red-glow);
-}
-.reel-col.ability .reel-window.landed .reel-item:last-child{box-shadow:inset 0 0 30px rgba(242,193,78,.4);}
-.reel-col.shield .reel-window.landed .reel-item:last-child{box-shadow:inset 0 0 30px rgba(92,225,230,.4);}
+    /* ===== Top Nav ===== */
+    .topnav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--gap);
+      margin-bottom: 18px;
+    }
 
-.secured-tag{
-  font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--teal);
-  border:1px solid var(--teal); padding:1px 6px; margin-top:2px;
-}
-.no-buy-tag{
-  font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--text-faint);
-  border:1px solid var(--line); padding:1px 6px; margin-top:2px;
-}
+    .nav-tab {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      color: var(--text-dim);
+      font-family: 'Teko', sans-serif;
+      font-size: 20px;
+      letter-spacing: .12em;
+      font-weight: 600;
+      padding: 10px 34px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: .15s;
+      clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%);
+    }
 
-.ability-slots{display:flex; flex-direction:column; gap:0; padding-bottom:14px;}
+    .nav-tab.active {
+      color: var(--red);
+      background: var(--red-dim);
+      border-color: var(--red);
+      box-shadow: 0 0 18px rgba(255, 70, 85, .18) inset;
+    }
 
-/* ===== Summary bar ===== */
-.summary-bar{
-  display:flex; align-items:center; gap:var(--gap); border:1px solid var(--line); border-top:none; background:var(--panel);
-}
-.summary-cell{flex:1; padding:12px 16px; border-left:1px solid var(--line); text-align:center;}
-.summary-cell:first-child{border-left:none; text-align:left;}
-.summary-label{font-size:10px; letter-spacing:.2em; color:var(--text-faint); text-transform:uppercase; font-weight:700;}
-.summary-value{font-family:'Teko'; font-size:26px; letter-spacing:.03em; margin-top:2px;}
-.summary-value.spent{color:var(--red);}
-.summary-value.remaining{color:var(--teal);}
-.summary-value.remaining.neg{color:var(--red);}
-.status-pill{
-  padding:12px 20px; text-align:center; min-width:180px; border-left:1px solid var(--line);
-}
-.status-pill .status-title{font-family:'Teko'; font-size:22px; letter-spacing:.15em;}
-.status-pill.full .status-title{color:var(--teal);}
-.status-pill.partial .status-title{color:var(--amber);}
-.status-pill.empty .status-title{color:var(--red);}
-.status-pill .status-sub{font-size:11px; color:var(--text-dim); letter-spacing:.1em; margin-top:2px;}
+    .nav-tab:not(.active):hover {
+      color: var(--text);
+      border-color: var(--line-bright);
+    }
 
-/* ===== Controls row ===== */
-.controls-row{display:flex; align-items:center; gap:16px; margin-top:20px;}
-.pull-btn{
-  flex:1; position:relative; overflow:hidden; background:linear-gradient(180deg, #d63b47, #96131e);
-  border:1px solid #ff6b76; color:#fff; font-family:'Teko'; font-size:32px; letter-spacing:.3em;
-  padding:16px 0; cursor:pointer; text-transform:uppercase; box-shadow:0 0 30px rgba(255,70,85,.25);
-  clip-path:polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%);
-  transition:filter .12s, transform .05s;
-}
-.pull-btn:hover{filter:brightness(1.12);}
-.pull-btn:active{transform:scale(.985);}
-.pull-btn:disabled{filter:grayscale(.6) brightness(.6); cursor:not-allowed;}
-.reset-btn, .sound-btn{
-  background:var(--panel-alt); border:1px solid var(--line); color:var(--text-dim); font-family:'Teko';
-  font-size:20px; letter-spacing:.15em; padding:14px 26px; cursor:pointer; text-transform:uppercase; transition:.12s;
-}
-.reset-btn:hover{border-color:var(--red); color:var(--red);}
-.sound-btn{padding:14px 18px; display:flex; align-items:center; gap:8px; font-size:14px;}
-.sound-btn:hover{border-color:var(--cyan); color:var(--cyan);}
-.hint-row{text-align:center; margin-top:12px; font-size:11px; letter-spacing:.15em; color:var(--text-faint); text-transform:uppercase;}
-.warn-banner{
-  margin-top:12px; padding:10px 14px; border:1px solid var(--red); background:var(--red-dim); color:#ffb3ba;
-  font-size:13px; letter-spacing:.03em; text-align:center; display:none;
-}
-.warn-banner.show{display:block;}
+    /* ===== Header banner ===== */
+    .banner {
+      text-align: center;
+      position: relative;
+      padding: 6px 0 16px;
+      margin-bottom: 14px;
+    }
 
-/* ===================== AGENT PAGE ===================== */
-.roulette-wrap{border:1px solid var(--line); background:var(--panel); padding:20px;}
-.roulette-window{
-  height:400px; overflow:hidden; position:relative; border:1px solid var(--line);
-  background:
-    linear-gradient(180deg, rgba(0,0,0,.6), transparent 18%, transparent 82%, rgba(0,0,0,.6)),
-    var(--void);
-}
-.roulette-window::before, .roulette-window::after{
-  content:''; position:absolute; left:0; right:0; height:1px; background:var(--red); z-index:3; opacity:.6;
-}
-.roulette-window::before{top:calc(50% - 66px);}
-.roulette-window::after{top:calc(50% + 66px);}
-.roulette-track{position:absolute; top:0; left:0; width:100%;}
-.a-card{
-  height:132px; display:flex; align-items:center; gap:18px; padding:0 30px; border-bottom:1px solid rgba(255,255,255,.03);
-}
-.a-portrait{
-  width:88px;height:88px; border:1px solid var(--line-bright); background:var(--panel-alt); flex-shrink:0;
-  display:flex; align-items:center; justify-content:center;
-  clip-path:polygon(14% 0,100% 0,100% 86%,86% 100%,0 100%,0 14%);
-}
-.a-portrait svg{width:52px;height:52px;}
-.a-name{font-family:'Teko'; font-size:34px; letter-spacing:.04em; text-transform:uppercase;}
-.a-role{font-size:12px; letter-spacing:.2em; text-transform:uppercase; font-weight:700; padding:2px 10px; display:inline-block; margin-top:4px;}
+    .banner .eyebrow {
+      font-size: 11px;
+      letter-spacing: .5em;
+      color: var(--red);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
 
-.role-duelist{color:var(--red); border-color:var(--red);}
-.role-initiator{color:var(--amber); border-color:var(--amber);}
-.role-controller{color:var(--violet); border-color:var(--violet);}
-.role-sentinel{color:var(--teal); border-color:var(--teal);}
-.bd-duelist{border:1px solid var(--red);}
-.bd-initiator{border:1px solid var(--amber);}
-.bd-controller{border:1px solid var(--violet);}
-.bd-sentinel{border:1px solid var(--teal);}
+    .banner h1 {
+      font-size: 56px;
+      line-height: .9;
+      margin: 2px 0 0;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #fff, #cfd6e0 60%, #8b93a0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 40px rgba(255, 70, 85, .15);
+    }
 
-.spin-controls{display:flex; gap:16px; margin-top:18px;}
-.spin-btn{
-  flex:1; background:linear-gradient(180deg,#d63b47,#96131e); border:1px solid #ff6b76; color:#fff;
-  font-family:'Teko'; font-size:30px; letter-spacing:.35em; padding:16px 0; cursor:pointer; text-transform:uppercase;
-  clip-path:polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%); box-shadow:0 0 30px rgba(255,70,85,.25);
-}
-.spin-btn:hover{filter:brightness(1.12);}
-.spin-btn:disabled{filter:grayscale(.6) brightness(.6); cursor:not-allowed;}
+    .banner-rule {
+      height: 2px;
+      margin-top: 10px;
+      background: linear-gradient(90deg, transparent, var(--red) 20%, var(--red) 80%, transparent);
+      clip-path: polygon(0 0, 100% 0, 96% 100%, 4% 100%);
+    }
 
-.result-card{
-  margin-top:22px; border:1px solid var(--line); background:var(--panel); padding:26px; display:none; gap:22px; align-items:center;
-}
-.result-card.show{display:flex;}
-.result-portrait{
-  width:150px;height:150px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
-  background:var(--panel-alt); border:1px solid var(--line-bright);
-  clip-path:polygon(14% 0,100% 0,100% 86%,86% 100%,0 100%,0 14%);
-}
-.result-portrait svg{width:90px;height:90px;}
-.result-name{font-family:'Teko'; font-size:52px; letter-spacing:.03em; text-transform:uppercase; line-height:.95;}
-.result-desc{color:var(--text-dim); font-size:15px; margin-top:8px; max-width:560px; line-height:1.4;}
-.result-actions{margin-left:auto; display:flex; flex-direction:column; gap:10px;}
-.use-agent-btn{
-  background:var(--panel-alt); border:1px solid var(--teal); color:var(--teal); font-family:'Teko'; font-size:18px;
-  letter-spacing:.15em; padding:10px 20px; cursor:pointer; text-transform:uppercase;
-}
-.use-agent-btn:hover{background:rgba(61,220,132,.12);}
+    /* ===== Page toggle ===== */
+    .page {
+      display: none;
+    }
 
-footer.disclaimer{
-  text-align:center; margin-top:30px; font-size:11px; color:var(--text-faint); letter-spacing:.06em;
-}
-@media (max-width:900px){
-  .reels-wrap{flex-direction:column;}
-  .reel-col + .reel-col{border-left:none; border-top:1px solid var(--line);}
-  .topbar{grid-template-columns:1fr;}
-  .credits-card{border-left:none; border-top:1px solid var(--line);}
-  .summary-bar{flex-wrap:wrap;}
-  .summary-cell{min-width:45%; border-left:none; border-top:1px solid var(--line);}
-  .banner h1{font-size:38px;}
-}
+    .page.active {
+      display: block;
+    }
 
-/* ===================== MOBILE / SMALL SCREENS ===================== */
-@media (max-width:600px){
-  .shell{padding:14px 12px 40px;}
-  .banner h1{font-size:30px;}
-  .banner .eyebrow{font-size:9px; letter-spacing:.3em;}
+    /* ===================== BUY PAGE ===================== */
+    .topbar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+      border: 1px solid var(--line);
+      margin-bottom: 16px;
+      background: var(--panel);
+    }
 
-  /* Nav tabs never overflow horizontally */
-  .topnav{flex-wrap:wrap; gap:6px;}
-  .nav-tab{flex:1 1 auto; padding:9px 10px; font-size:16px; letter-spacing:.06em; text-align:center;}
+    .agent-card,
+    .credits-card {
+      padding: 16px 20px;
+      position: relative;
+    }
 
-  /* Agent card row wraps instead of pushing select off-screen */
-  .agent-row{flex-wrap:wrap; gap:10px;}
-  .agent-select{margin-left:0; flex:1 1 100%; width:100%;}
-  .agent-portrait{width:52px; height:52px;}
-  .agent-meta h2{font-size:22px;}
+    .credits-card {
+      border-left: 1px solid var(--line);
+    }
 
-  /* Credits input + chips wrap and never overflow */
-  .credits-input-wrap{flex-wrap:wrap;}
-  .credits-input-wrap input{width:100%; flex:1 1 100%;}
-  .quick-credits{flex-wrap:wrap; width:100%;}
-  .chip{flex:1 1 calc(50% - 8px); text-align:center; padding:8px 6px; font-size:12px;}
+    .card-label {
+      font-size: 11px;
+      letter-spacing: .3em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
 
-  /* Summary bar / status pill stack cleanly */
-  .summary-cell{min-width:100%; text-align:left;}
-  .status-pill{min-width:100%; border-left:none; border-top:1px solid var(--line);}
+    .agent-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 8px;
+    }
 
-  /* Controls row: stack buttons full-width so nothing overflows */
-  .controls-row{flex-direction:column; gap:10px;}
-  .pull-btn{width:100%; font-size:24px; letter-spacing:.15em; padding:14px 0;}
-  .reset-btn, .sound-btn{width:100%; justify-content:center; font-size:16px; letter-spacing:.08em; padding:12px 0;}
+    .agent-portrait {
+      width: 64px;
+      height: 64px;
+      border: 1px solid var(--line-bright);
+      background: var(--panel-alt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      clip-path: polygon(12% 0, 100% 0, 100% 88%, 88% 100%, 0 100%, 0 12%);
+    }
 
-  /* Agent roulette controls stack too */
-  .spin-controls{flex-direction:column; gap:10px;}
-  .spin-btn{width:100%; font-size:22px; letter-spacing:.15em; padding:14px 0;}
-  .reset-btn[style*="flex:0"]{width:100%;}
+    .agent-portrait svg {
+      width: 38px;
+      height: 38px;
+    }
 
-  .a-card{padding:0 14px; gap:12px;}
-  .a-portrait{width:60px; height:60px;}
-  .a-portrait svg{width:36px; height:36px;}
-  .a-name{font-size:24px;}
+    .agent-meta h2 {
+      font-size: 28px;
+      margin: 0;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
 
-  /* Result card: stack vertically, buttons full-width and on-screen */
-  .result-card{flex-direction:column; align-items:stretch; text-align:center; padding:16px;}
-  .result-portrait{width:100px; height:100px; margin:0 auto;}
-  .result-portrait svg{width:60px; height:60px;}
-  .result-name{font-size:36px;}
-  .result-desc{max-width:100%;}
-  .result-actions{margin-left:0; width:100%; margin-top:12px;}
-  .use-agent-btn{width:100%; box-sizing:border-box;}
+    .role-tag {
+      font-size: 12px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 2px 8px;
+      display: inline-block;
+      margin-top: 2px;
+    }
 
-  .reel-window{margin:10px 10px 0;}
-  .reel-window.mini{margin:6px 10px 0;}
-}
-</style>
-</head>
-<body>
-<div class="shell">
+    .agent-select {
+      margin-left: auto;
+      background: var(--panel-alt);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-family: 'Rajdhani';
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px 10px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
 
-  <div class="banner">
-    <div class="eyebrow">Fan-Made Buy Phase Randomizer</div>
-    <h1>Valorant Gamble</h1>
-    <div class="banner-rule"></div>
-  </div>
+    .credits-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-top: 6px;
+    }
 
-  <div class="topnav">
-    <button class="nav-tab active" data-page="buy">Buy Gamble</button>
-    <button class="nav-tab" data-page="agent">Agent Roulette</button>
-  </div>
+    .credits-balance {
+      font-family: 'Teko';
+      font-size: 44px;
+      color: var(--red);
+      letter-spacing: .02em;
+    }
 
-  <!-- ============ BUY GAMBLE PAGE ============ -->
-  <div class="page active" id="page-buy">
+    .credits-icon {
+      color: var(--red);
+    }
 
-    <div class="topbar">
-      <div class="agent-card">
-        <div class="card-label">Agent // Selected</div>
-        <div class="agent-row">
-          <div class="agent-portrait" id="agentPortrait"></div>
-          <div class="agent-meta">
-            <h2 id="agentName">RAZE</h2>
-            <span class="role-tag" id="agentRole">DUELIST</span>
-          </div>
-          <select class="agent-select" id="agentSelect"></select>
-        </div>
-      </div>
-      <div class="credits-card">
-        <div class="card-label">Balance</div>
-        <div class="credits-row">
-          <span class="credits-icon">◈</span>
-          <span class="credits-balance" id="creditsBalance">0</span>
-        </div>
-        <div class="credits-input-wrap">
-          <input type="number" id="creditsInput" min="0" max="9000" placeholder="Enter creds">
-          <div class="quick-credits">
-            <button class="chip" data-add="50">+50</button>
-            <button class="chip" data-add="100">+100</button>
-            <button class="chip" data-add="500">+500</button>
-            <button class="chip" data-add="1000">+1,000</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    .credits-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
 
-    <div class="reels-wrap">
-      <div class="reel-col weapon">
-        <div class="reel-col-head">Weapon</div>
-        <div class="reel-window" id="weaponWindow">
-          <div class="reel-track" id="weaponTrack"></div>
-        </div>
-        <div style="flex:1"></div>
-      </div>
-      <div class="reel-col ability">
-        <div class="reel-col-head">Ability</div>
-        <div class="ability-slots">
-          <div class="reel-window mini" id="abilityWindow0"><div class="reel-track" id="abilityTrack0"></div></div>
-          <div class="reel-window mini" id="abilityWindow1"><div class="reel-track" id="abilityTrack1"></div></div>
-          <div class="reel-window mini" id="abilityWindow2"><div class="reel-track" id="abilityTrack2"></div></div>
-        </div>
-      </div>
-      <div class="reel-col shield">
-        <div class="reel-col-head">Shield</div>
-        <div class="reel-window" id="shieldWindow">
-          <div class="reel-track" id="shieldTrack"></div>
-        </div>
-        <div style="flex:1"></div>
-      </div>
-    </div>
+    .credits-input-wrap input {
+      background: var(--panel-alt);
+      border: 1px solid var(--line);
+      color: var(--text);
+      font-family: 'JetBrains Mono';
+      font-size: 16px;
+      padding: 8px 10px;
+      width: 120px;
+      max-width: 100%;
+    }
 
-    <div class="summary-bar">
-      <div class="summary-cell">
-        <div class="summary-label">Weapon</div>
-        <div class="summary-value" id="sumWeapon">—</div>
-      </div>
-      <div class="summary-cell">
-        <div class="summary-label">Abilities</div>
-        <div class="summary-value" id="sumAbilities">0/3 Secured</div>
-      </div>
-      <div class="summary-cell">
-        <div class="summary-label">Shield</div>
-        <div class="summary-value" id="sumShield">—</div>
-      </div>
-      <div class="summary-cell">
-        <div class="summary-label">Start</div>
-        <div class="summary-value mono" id="sumStart">◈0</div>
-      </div>
-      <div class="summary-cell">
-        <div class="summary-label">Spent</div>
-        <div class="summary-value spent mono" id="sumSpent">◈0</div>
-      </div>
-      <div class="summary-cell">
-        <div class="summary-label">Left</div>
-        <div class="summary-value remaining mono" id="sumLeft">◈0</div>
-      </div>
-      <div class="status-pill full" id="statusPill">
-        <div class="status-title" id="statusTitle">No Pull Yet</div>
-        <div class="status-sub" id="statusSub">0 empty slots</div>
-      </div>
-    </div>
+    .credits-input-wrap input:focus {
+      outline: none;
+      border-color: var(--red);
+    }
 
-    <div class="warn-banner" id="warnBanner">Not enough Credits for a valid buy — add more Credits above.</div>
+    .quick-credits {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
 
-    <div class="controls-row">
-      <button class="reset-btn" id="resetBtn">Reset</button>
-      <button class="pull-btn" id="pullBtn">Pull</button>
-      <button class="sound-btn" id="soundBtn">🔊 Sound On</button>
-    </div>
-    <div class="hint-row">Space = Pull &nbsp;•&nbsp; R = Reset &nbsp;•&nbsp; M = Mute</div>
-  </div>
+    .chip {
+      background: var(--panel-alt);
+      border: 1px solid var(--line);
+      color: var(--cyan);
+      font-family: 'JetBrains Mono';
+      font-size: 13px;
+      padding: 7px 12px;
+      cursor: pointer;
+      transition: .12s;
+    }
 
-  <!-- ============ AGENT ROULETTE PAGE ============ -->
-  <div class="page" id="page-agent">
-    <div class="roulette-wrap">
-      <div class="roulette-window" id="rouletteWindow">
-        <div class="roulette-track" id="rouletteTrack"></div>
-      </div>
-      <div class="spin-controls">
-        <button class="reset-btn" id="spinResetBtn" style="flex:0;">Reset</button>
-        <button class="spin-btn" id="spinBtn">Spin</button>
-      </div>
-    </div>
+    .chip:hover {
+      border-color: var(--cyan);
+      background: var(--cyan-dim);
+    }
 
-    <div class="result-card" id="resultCard">
-      <div class="result-portrait" id="resultPortrait"></div>
-      <div>
-        <div class="result-name" id="resultName">JETT</div>
-        <span class="role-tag" id="resultRole">Duelist</span>
-        <div class="result-desc" id="resultDesc"></div>
-      </div>
-      <div class="result-actions">
-        <button class="use-agent-btn" id="useAgentBtn">Use This Agent →</button>
-        <button class="use-agent-btn" id="spinAgainBtn">Spin Again</button>
-      </div>
-    </div>
-  </div>
+    .mode-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
 
-  <footer class="disclaimer">Unofficial fan-made tool. Not affiliated with or endorsed by Riot Games. VALORANT is a trademark of Riot Games, Inc.</footer>
-</div>
+    .mode-label {
+      font-size: 11px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      font-weight: 700;
+      margin-right: 2px;
+    }
 
-<script>
-/* =========================================================
-   DATA
-========================================================= */
-const WEAPONS = [
-  {name:"Classic", cost:0}, {name:"Shorty", cost:300}, {name:"Frenzy", cost:450},
-  {name:"Ghost", cost:500}, {name:"Bandit", cost:600}, {name:"Sheriff", cost:800},
-  {name:"Stinger", cost:1100}, {name:"Spectre", cost:1600}, {name:"Bucky", cost:850},
-  {name:"Judge", cost:1850}, {name:"Bulldog", cost:2050}, {name:"Guardian", cost:2250},
-  {name:"Phantom", cost:2900}, {name:"Vandal", cost:2900}, {name:"Marshal", cost:950},
-  {name:"Outlaw", cost:2400}, {name:"Operator", cost:4700}, {name:"Ares", cost:1600},
-  {name:"Odin", cost:3200}
-];
-const SHIELDS = [
-  {name:"Nothing", cost:0}, {name:"Light Shields", cost:400}, {name:"Regen Shields", cost:650}, {name:"Heavy Shields", cost:1000}
-];
+    .chip.mode-chip {
+      color: var(--text-dim);
+    }
 
-function ic(path, viewBox){ return `<svg viewBox="${viewBox||'0 0 24 24'}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`; }
-const ICONS = {
-  weapon: ic('<path d="M2 15l7-7 2 2-7 7-2-2z"/><path d="M9 8l4-4 3 3-4 4"/><path d="M14 5l3-3 4 4-3 3"/><circle cx="19" cy="8" r="1.2" fill="currentColor" stroke="none"/>'),
-  ability: ic('<path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5z"/>'),
-  shieldNothing: ic('<path d="M4 4l16 16M20 4L4 20" opacity=".5"/>'),
-  shieldLight: ic('<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/>'),
-  shieldRegen: ic('<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M15 9a3 3 0 1 0 .6 3.2" opacity=".85"/><path d="M15.6 8.2v2h-2" opacity=".85"/>'),
-  shieldHeavy: ic('<path d="M12 2l8 3.2v6c0 5.5-3.4 9.7-8 11.5-4.6-1.8-8-6-8-11.5v-6L12 2z"/><path d="M12 6v12" opacity=".6"/>'),
-};
+    .chip.mode-chip.active {
+      color: var(--red);
+      border-color: var(--red);
+      background: var(--red-dim);
+      box-shadow: 0 0 12px rgba(255, 70, 85, .15) inset;
+    }
 
-function roleBadge(letter, roleClass){
-  return `<svg viewBox="0 0 40 40"><polygon points="20,2 38,10 38,30 20,38 2,30 2,10" fill="none" stroke="currentColor" stroke-width="1.4"/><text x="20" y="26" text-anchor="middle" font-family="Teko" font-size="20" fill="currentColor">${letter}</text></svg>`;
-}
+    /* ===== Reels grid ===== */
+    .reels-wrap {
+      display: flex;
+      align-items: stretch;
+      gap: var(--gap);
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
 
-const AGENTS_RAW = [
- {id:"jett", name:"Jett", role:"Duelist", cls:"role-duelist", bd:"bd-duelist", desc:"A wind-fast duelist who dashes through crossfires and dares the enemy to keep up.",
-   abilities:[{name:"Cloudburst",cost:200},{name:"Updraft",cost:150},{name:"Tailwind",cost:0}]},
- {id:"phoenix", name:"Phoenix", role:"Duelist", cls:"role-duelist", bd:"bd-duelist", desc:"A self-styled star who plays with fire, healing through the flames he throws.",
-   abilities:[{name:"Curveball",cost:200},{name:"Hot Hands",cost:200},{name:"Blaze",cost:150}]},
- {id:"raze", name:"Raze", role:"Duelist", cls:"role-duelist", bd:"bd-duelist", desc:"An explosives expert who clears corners loudly and leaves nothing standing.",
-   abilities:[{name:"Blast Pack",cost:200},{name:"Boom Bot",cost:300},{name:"Paint Shells",cost:0}]},
- {id:"reyna", name:"Reyna", role:"Duelist", cls:"role-duelist", bd:"bd-duelist", desc:"A soul-devouring duelist who turns every kill into fuel for the next fight.",
-   abilities:[{name:"Leer",cost:250},{name:"Devour",cost:0},{name:"Dismiss",cost:0}]},
- {id:"yoru", name:"Yoru", role:"Duelist", cls:"role-duelist", bd:"bd-duelist", desc:"A trickster duelist who rips through dimensions to appear where he's least expected.",
-   abilities:[{name:"Blindside",cost:250},{name:"Gatecrash",cost:200},{name:"Fakeout",cost:200}]},
- {id:"neon", name:"Neon", role:"Duelist", cls:"role-duelist", bd:"bd-duelist", desc:"A live-wire sprinter who outpaces every angle with raw electric speed.",
-   abilities:[{name:"Fast Lane",cost:250},{name:"High Gear",cost:0},{name:"Relay Bolt",cost:250}]},
- {id:"iso", name:"Iso", role:"Duelist", cls:"role-duelist", bd:"bd-duelist", desc:"A cool, calculating duelist who shields himself and bets everything on the duel.",
-   abilities:[{name:"Contingency",cost:200},{name:"Undercut",cost:300},{name:"Double Tap",cost:200}]},
- {id:"waylay", name:"Waylay", role:"Duelist", cls:"role-duelist", bd:"bd-duelist", desc:"A radiant entry fragger from Thailand who slows the fight down for everyone but herself, then dashes through the opening at light speed.",
-   abilities:[{name:"Saturate",cost:300},{name:"Lightspeed",cost:300},{name:"Refract",cost:0}]},
- {id:"sova", name:"Sova", role:"Initiator", cls:"role-initiator", bd:"bd-initiator", desc:"A hunter who reads the battlefield with drones and bolts before anyone moves.",
-   abilities:[{name:"Owl Drone",cost:400},{name:"Shock Bolt",cost:150},{name:"Recon Bolt",cost:300}]},
- {id:"breach", name:"Breach", role:"Initiator", cls:"role-initiator", bd:"bd-initiator", desc:"A bionic bulldozer who fires his charges straight through walls to soften a site.",
-   abilities:[{name:"Aftershock",cost:200},{name:"Flashpoint",cost:250},{name:"Fault Line",cost:200}]},
- {id:"skye", name:"Skye", role:"Initiator", cls:"role-initiator", bd:"bd-initiator", desc:"A scout who sends trailblazing creatures ahead to flush enemies into the open.",
-   abilities:[{name:"Trailblazer",cost:300},{name:"Guiding Light",cost:200},{name:"Regrowth",cost:150}]},
- {id:"kayo", name:"KAY/O", role:"Initiator", cls:"role-initiator", bd:"bd-initiator", desc:"A battle-forged robot who suppresses enemy abilities before the fight even starts.",
-   abilities:[{name:"FRAG/ment",cost:200},{name:"FLASH/drive",cost:250},{name:"ZERO/point",cost:0}]},
- {id:"fade", name:"Fade", role:"Initiator", cls:"role-initiator", bd:"bd-initiator", desc:"A nightmare-hunter who drags enemies' deepest fears out into the light.",
-   abilities:[{name:"Prowler",cost:250},{name:"Seize",cost:200},{name:"Haunt",cost:200}]},
- {id:"gekko", name:"Gekko", role:"Initiator", cls:"role-initiator", bd:"bd-initiator", desc:"A street-smart initiator whose creature companions do the dirty work for him.",
-   abilities:[{name:"Mosh Pit",cost:250},{name:"Wingman",cost:300},{name:"Dizzy",cost:200}]},
- {id:"tejo", name:"Tejo", role:"Initiator", cls:"role-initiator", bd:"bd-initiator", desc:"A Colombian explosives consultant who guides missiles and a stealth drone to flush enemies out from any distance.",
-   abilities:[{name:"Special Delivery",cost:200},{name:"Stealth Drone",cost:400},{name:"Guided Salvo",cost:0}]},
- {id:"brimstone", name:"Brimstone", role:"Controller", cls:"role-controller", bd:"bd-controller", desc:"A veteran commander who calls in orbital smokes with no-nonsense precision.",
-   abilities:[{name:"Incendiary",cost:250},{name:"Sky Smoke",cost:100},{name:"Stim Beacon",cost:200}]},
- {id:"omen", name:"Omen", role:"Controller", cls:"role-controller", bd:"bd-controller", desc:"A shadow that stalks the edges of memory, blinding sightlines and teleporting through the dark.",
-   abilities:[{name:"Shrouded Step",cost:100},{name:"Paranoia",cost:250},{name:"Dark Cover",cost:150}]},
- {id:"viper", name:"Viper", role:"Controller", cls:"role-controller", bd:"bd-controller", desc:"A chemist who poisons the field with toxic gas walls that punish anyone who lingers.",
-   abilities:[{name:"Poison Cloud",cost:200},{name:"Toxic Screen",cost:200},{name:"Snake Bite",cost:300}]},
- {id:"astra", name:"Astra", role:"Controller", cls:"role-controller", bd:"bd-controller", desc:"A cosmic strategist who plays the entire map at once from among the stars.",
-   isAstra:true, stars:{total:5, free:1, costPerStar:150},
-   abilities:[
-     {name:"Gravity Well", charges:1, effect:"Cripple, Displacement"},
-     {name:"Nova Pulse", charges:1, effect:"Concuss"},
-     {name:"Nebula/Dissipate", charges:2, effect:"Smoke"}
-   ]},
- {id:"harbor", name:"Harbor", role:"Controller", cls:"role-controller", bd:"bd-controller", desc:"An ancient warrior who bends water into shields and crushing tidal walls.",
-   abilities:[{name:"Cove",cost:200},{name:"Cascade",cost:200},{name:"High Tide",cost:300}]},
- {id:"clove", name:"Clove", role:"Controller", cls:"role-controller", bd:"bd-controller", desc:"An immortal trickster controller who cheats death and toys with the enemy's plans.",
-   abilities:[{name:"Pick-Me-Up",cost:200},{name:"Meddle",cost:250},{name:"Ruse",cost:100}]},
- {id:"miks", name:"Miks", role:"Controller", cls:"role-controller", bd:"bd-controller", desc:"A sound-based controller whose kit splits between smokes, a shared combat stim, and the game's first deployable heal.",
-   abilities:[{name:"Harmonize",cost:200},{name:"M-Pulse",cost:300},{name:"Waveform",cost:100}]},
- {id:"cypher", name:"Cypher", role:"Sentinel", cls:"role-sentinel", bd:"bd-sentinel", desc:"A private eye who wires every angle with cameras and tripwires before the round even begins.",
-   abilities:[{name:"Trapwire",cost:200},{name:"Cyber Cage",cost:100},{name:"Spycam",cost:0}]},
- {id:"killjoy", name:"Killjoy", role:"Sentinel", cls:"role-sentinel", bd:"bd-sentinel", desc:"A gadgeteer who defends sites with turrets, swarms, and alarms of her own design.",
-   abilities:[{name:"Alarmbot",cost:200},{name:"Nanoswarm",cost:200},{name:"Turret",cost:200}]},
- {id:"sage", name:"Sage", role:"Sentinel", cls:"role-sentinel", bd:"bd-sentinel", desc:"A healer who slows the enemy's advance and brings her allies back from the brink.",
-   abilities:[{name:"Slow Orb",cost:200},{name:"Healing Orb",cost:0},{name:"Barrier Orb",cost:300}]},
- {id:"chamber", name:"Chamber", role:"Sentinel", cls:"role-sentinel", bd:"bd-sentinel", desc:"A French gunsmith who holds angles with custom hardware and teleports out of danger.",
-   abilities:[{name:"Trademark",cost:200},{name:"Headhunter",cost:100},{name:"Rendezvous",cost:200}]},
- {id:"deadlock", name:"Deadlock", role:"Sentinel", cls:"role-sentinel", bd:"bd-sentinel", desc:"A Norwegian sentinel who locks down sites with sonic nets and restraining mesh.",
-   abilities:[{name:"Barrier Mesh",cost:300},{name:"Sonic Sensor",cost:200},{name:"GravNet",cost:200}]},
- {id:"veto", name:"Veto", role:"Sentinel", cls:"role-sentinel", bd:"bd-sentinel", desc:"A Senegalese sentinel whose mutated biology lets him trap, deafen, and consume enemy utility before it ever lands.",
-   abilities:[{name:"Chokehold",cost:200},{name:"Crosscut",cost:200},{name:"Interceptor",cost:0}]},
- {id:"vyse", name:"Vyse", role:"Sentinel", cls:"role-sentinel", bd:"bd-sentinel", desc:"A metal-forged sentinel who fortifies chokepoints with vines and razor traps.",
-   abilities:[{name:"Razorvine",cost:150},{name:"Shear",cost:200},{name:"Arc Rose",cost:100}]},
-];
-const AGENTS = [...AGENTS_RAW].sort((a,b)=>a.name.localeCompare(b.name));
+    .reel-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
 
-/* =========================================================
-   STATE
-========================================================= */
-let selectedAgentId = "raze";
-let credits = 0;
-let soundOn = true;
-let lastLoadout = null;
-let spinning = false;
+    .reel-col+.reel-col {
+      border-left: 1px solid var(--line);
+    }
 
-/* =========================================================
-   AUDIO (WebAudio synth — no external files)
-========================================================= */
-let actx = null;
-function ensureAudio(){ if(!actx){ try{ actx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} } }
-function beep(freq, dur, type, vol){
-  if(!soundOn) return;
-  ensureAudio();
-  if(!actx) return;
-  const t = actx.currentTime;
-  const osc = actx.createOscillator();
-  const gain = actx.createGain();
-  osc.type = type || "square";
-  osc.frequency.setValueAtTime(freq, t);
-  gain.gain.setValueAtTime(0, t);
-  gain.gain.linearRampToValueAtTime(vol||0.06, t+0.005);
-  gain.gain.exponentialRampToValueAtTime(0.001, t+dur);
-  osc.connect(gain).connect(actx.destination);
-  osc.start(t); osc.stop(t+dur+0.02);
-}
-function tickSound(){ beep(1200+Math.random()*300, 0.05, "square", 0.045); }
-function winSound(){ beep(660,0.09,"triangle",0.08); setTimeout(()=>beep(880,0.12,"triangle",0.08),90); setTimeout(()=>beep(1320,0.18,"triangle",0.09),190); }
-function clunkSound(){ beep(180,0.12,"sawtooth",0.07); }
+    .reel-col-head {
+      text-align: center;
+      padding: 10px 0;
+      font-family: 'Teko';
+      font-size: 22px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      border-bottom: 1px solid var(--line);
+      background: var(--panel-alt);
+    }
 
-/* =========================================================
-   HELPERS
-========================================================= */
-function fmt(n){ return "◈" + n.toLocaleString(); }
-function weightedPick(arr){
-  // simple uniform-random pick from an array of items
-  return arr[Math.floor(Math.random()*arr.length)];
-}
-function currentAgent(){ return AGENTS.find(a=>a.id===selectedAgentId); }
+    .reel-col.weapon .reel-col-head {
+      color: var(--red);
+    }
 
-/* =========================================================
-   BUY LOGIC — generate a valid, varied loadout for given credits
-========================================================= */
-function generateLoadout(totalCredits){
-  let remaining = totalCredits;
-  const agent = currentAgent();
+    .reel-col.ability .reel-col-head {
+      color: var(--amber);
+    }
 
-  // --- Weapon: uniformly random among everything affordable, varied not cheapest-biased
-  const affordableWeapons = WEAPONS.filter(w => w.cost <= remaining);
-  const weapon = affordableWeapons.length ? weightedPick(affordableWeapons) : WEAPONS[0];
-  remaining -= weapon.cost;
+    .reel-col.shield .reel-col-head {
+      color: var(--cyan);
+    }
 
-  // --- Abilities: shuffle the 3 ability slots, roll each with a purchase chance if affordable
-  let boughtAbility, starsInfo = null;
-  if(agent.isAstra){
-    const astraResult = generateAstraStars(agent, remaining);
-    boughtAbility = astraResult.securedCharges; // array of charge-counts secured per ability slot
-    remaining = astraResult.remaining;
-    starsInfo = astraResult;
-  } else {
-    const order = [0,1,2].sort(()=>Math.random()-0.5);
-    boughtAbility = [false,false,false];
-    order.forEach(i=>{
-      const ab = agent.abilities[i];
-      if(ab.cost <= remaining){
-        const buyChance = ab.cost === 0 ? 0.9 : 0.65; // free abilities almost always taken, paid ones sometimes skipped for variety
-        if(Math.random() < buyChance){
-          boughtAbility[i] = true;
-          remaining -= ab.cost;
-        }
+    .reel-window {
+      height: 150px;
+      overflow: hidden;
+      position: relative;
+      margin: 14px 14px 0;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, .55), transparent 20%, transparent 80%, rgba(0, 0, 0, .55)),
+        var(--void);
+    }
+
+    .reel-window.mini {
+      height: 96px;
+      margin: 8px 14px 0;
+    }
+
+    .reel-track {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      will-change: transform;
+    }
+
+    .reel-item {
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 6px;
+    }
+
+    .reel-item.mini {
+      height: 96px;
+    }
+
+    .reel-item .item-icon {
+      width: 38px;
+      height: 38px;
+      opacity: .9;
+    }
+
+    .reel-item.mini .item-icon {
+      width: 26px;
+      height: 26px;
+    }
+
+    .item-name {
+      font-family: 'Teko';
+      font-size: 22px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+
+    .reel-item.mini .item-name {
+      font-size: 17px;
+    }
+
+    .item-cost {
+      font-family: 'JetBrains Mono';
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .item-cost.free {
+      color: var(--teal);
+    }
+
+    .item-nothing .item-name {
+      color: var(--text-faint);
+    }
+
+    .reel-window.landed .reel-item:last-child {
+      box-shadow: inset 0 0 30px var(--red-glow);
+    }
+
+    .reel-col.ability .reel-window.landed .reel-item:last-child {
+      box-shadow: inset 0 0 30px rgba(242, 193, 78, .4);
+    }
+
+    .reel-col.shield .reel-window.landed .reel-item:last-child {
+      box-shadow: inset 0 0 30px rgba(92, 225, 230, .4);
+    }
+
+    .secured-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      border: 1px solid var(--teal);
+      padding: 1px 6px;
+      margin-top: 2px;
+    }
+
+    .no-buy-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      border: 1px solid var(--line);
+      padding: 1px 6px;
+      margin-top: 2px;
+    }
+
+    .ability-slots {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding-bottom: 14px;
+    }
+
+    /* ===== Summary bar ===== */
+    .summary-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--gap);
+      border: 1px solid var(--line);
+      border-top: none;
+      background: var(--panel);
+    }
+
+    .summary-cell {
+      flex: 1;
+      padding: 12px 16px;
+      border-left: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .summary-cell:first-child {
+      border-left: none;
+      text-align: left;
+    }
+
+    .summary-label {
+      font-size: 10px;
+      letter-spacing: .2em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .summary-value {
+      font-family: 'Teko';
+      font-size: 26px;
+      letter-spacing: .03em;
+      margin-top: 2px;
+    }
+
+    .summary-value.spent {
+      color: var(--red);
+    }
+
+    .summary-value.remaining {
+      color: var(--teal);
+    }
+
+    .summary-value.remaining.neg {
+      color: var(--red);
+    }
+
+    .status-pill {
+      padding: 12px 20px;
+      text-align: center;
+      min-width: 180px;
+      border-left: 1px solid var(--line);
+    }
+
+    .status-pill .status-title {
+      font-family: 'Teko';
+      font-size: 22px;
+      letter-spacing: .15em;
+    }
+
+    .status-pill.full .status-title {
+      color: var(--teal);
+    }
+
+    .status-pill.partial .status-title {
+      color: var(--amber);
+    }
+
+    .status-pill.empty .status-title {
+      color: var(--red);
+    }
+
+    .status-pill .status-sub {
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: .1em;
+      margin-top: 2px;
+    }
+
+    /* ===== Controls row ===== */
+    .controls-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .pull-btn {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, #d63b47, #96131e);
+      border: 1px solid #ff6b76;
+      color: #fff;
+      font-family: 'Teko';
+      font-size: 32px;
+      letter-spacing: .3em;
+      padding: 16px 0;
+      cursor: pointer;
+      text-transform: uppercase;
+      box-shadow: 0 0 30px rgba(255, 70, 85, .25);
+      clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+      transition: filter .12s, transform .05s;
+    }
+
+    .pull-btn:hover {
+      filter: brightness(1.12);
+    }
+
+    .pull-btn:active {
+      transform: scale(.985);
+    }
+
+    .pull-btn:disabled {
+      filter: grayscale(.6) brightness(.6);
+      cursor: not-allowed;
+    }
+
+    .reset-btn,
+    .sound-btn {
+      background: var(--panel-alt);
+      border: 1px solid var(--line);
+      color: var(--text-dim);
+      font-family: 'Teko';
+      font-size: 20px;
+      letter-spacing: .15em;
+      padding: 14px 26px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: .12s;
+    }
+
+    .reset-btn:hover {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .sound-btn {
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .sound-btn:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    .hint-row {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 11px;
+      letter-spacing: .15em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+    }
+
+    .warn-banner {
+      margin-top: 12px;
+      padding: 10px 14px;
+      border: 1px solid var(--red);
+      background: var(--red-dim);
+      color: #ffb3ba;
+      font-size: 13px;
+      letter-spacing: .03em;
+      text-align: center;
+      display: none;
+    }
+
+    .warn-banner.show {
+      display: block;
+    }
+
+    /* ===================== AGENT PAGE ===================== */
+    .roulette-wrap {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 20px;
+    }
+
+    .roulette-window {
+      height: 400px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, .6), transparent 18%, transparent 82%, rgba(0, 0, 0, .6)),
+        var(--void);
+    }
+
+    .roulette-window::before,
+    .roulette-window::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--red);
+      z-index: 3;
+      opacity: .6;
+    }
+
+    .roulette-window::before {
+      top: calc(50% - 66px);
+    }
+
+    .roulette-window::after {
+      top: calc(50% + 66px);
+    }
+
+    .roulette-track {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    .a-card {
+      height: 132px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 0 30px;
+      border-bottom: 1px solid rgba(255, 255, 255, .03);
+    }
+
+    .a-portrait {
+      width: 88px;
+      height: 88px;
+      border: 1px solid var(--line-bright);
+      background: var(--panel-alt);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      clip-path: polygon(14% 0, 100% 0, 100% 86%, 86% 100%, 0 100%, 0 14%);
+    }
+
+    .a-portrait svg {
+      width: 52px;
+      height: 52px;
+    }
+
+    .a-name {
+      font-family: 'Teko';
+      font-size: 34px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .a-role {
+      font-size: 12px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 2px 10px;
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    .role-duelist {
+      color: var(--red);
+      border-color: var(--red);
+    }
+
+    .role-initiator {
+      color: var(--amber);
+      border-color: var(--amber);
+    }
+
+    .role-controller {
+      color: var(--violet);
+      border-color: var(--violet);
+    }
+
+    .role-sentinel {
+      color: var(--teal);
+      border-color: var(--teal);
+    }
+
+    .bd-duelist {
+      border: 1px solid var(--red);
+    }
+
+    .bd-initiator {
+      border: 1px solid var(--amber);
+    }
+
+    .bd-controller {
+      border: 1px solid var(--violet);
+    }
+
+    .bd-sentinel {
+      border: 1px solid var(--teal);
+    }
+
+    .spin-controls {
+      display: flex;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .spin-btn {
+      flex: 1;
+      background: linear-gradient(180deg, #d63b47, #96131e);
+      border: 1px solid #ff6b76;
+      color: #fff;
+      font-family: 'Teko';
+      font-size: 30px;
+      letter-spacing: .35em;
+      padding: 16px 0;
+      cursor: pointer;
+      text-transform: uppercase;
+      clip-path: polygon(14px 0, 100% 0, calc(100% - 14px) 100%, 0 100%);
+      box-shadow: 0 0 30px rgba(255, 70, 85, .25);
+    }
+
+    .spin-btn:hover {
+      filter: brightness(1.12);
+    }
+
+    .spin-btn:disabled {
+      filter: grayscale(.6) brightness(.6);
+      cursor: not-allowed;
+    }
+
+    .result-card {
+      margin-top: 22px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 26px;
+      display: none;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .result-card.show {
+      display: flex;
+    }
+
+    .result-portrait {
+      width: 150px;
+      height: 150px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--panel-alt);
+      border: 1px solid var(--line-bright);
+      clip-path: polygon(14% 0, 100% 0, 100% 86%, 86% 100%, 0 100%, 0 14%);
+    }
+
+    .result-portrait svg {
+      width: 90px;
+      height: 90px;
+    }
+
+    .result-name {
+      font-family: 'Teko';
+      font-size: 52px;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      line-height: .95;
+    }
+
+    .result-desc {
+      color: var(--text-dim);
+      font-size: 15px;
+      margin-top: 8px;
+      max-width: 560px;
+      line-height: 1.4;
+    }
+
+    .result-actions {
+      margin-left: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .use-agent-btn {
+      background: var(--panel-alt);
+      border: 1px solid var(--teal);
+      color: var(--teal);
+      font-family: 'Teko';
+      font-size: 18px;
+      letter-spacing: .15em;
+      padding: 10px 20px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .use-agent-btn:hover {
+      background: rgba(61, 220, 132, .12);
+    }
+
+    footer.disclaimer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 11px;
+      color: var(--text-faint);
+      letter-spacing: .06em;
+    }
+
+    @media (max-width:900px) {
+      .reels-wrap {
+        flex-direction: column;
       }
-    });
-  }
 
-  // --- Shield: weighted based on what's left, with randomness for variety
-  // SHIELDS = [Nothing(0), Light(400), Regen(650), Heavy(1000)]
-  let shield = SHIELDS[0];
-  const r = Math.random();
-  if(remaining >= 1000){
-    shield = r < 0.55 ? SHIELDS[3] : (r < 0.75 ? SHIELDS[2] : (r < 0.92 ? SHIELDS[1] : SHIELDS[0]));
-  } else if(remaining >= 650){
-    shield = r < 0.6 ? SHIELDS[2] : (r < 0.85 ? SHIELDS[1] : SHIELDS[0]);
-  } else if(remaining >= 400){
-    shield = r < 0.7 ? SHIELDS[1] : SHIELDS[0];
-  }
-  remaining -= shield.cost;
+      .reel-col+.reel-col {
+        border-left: none;
+        border-top: 1px solid var(--line);
+      }
 
-  const spent = totalCredits - remaining;
-  let emptySlots;
-  if(agent.isAstra){
-    emptySlots = agent.abilities.reduce((sum,ab,i)=> sum + (ab.charges - boughtAbility[i]), 0) + (shield.cost===0 ? 1 : 0);
-  } else {
-    emptySlots = boughtAbility.filter(b=>!b).length + (shield.cost===0 ? 1 : 0);
-  }
+      .topbar {
+        grid-template-columns: 1fr;
+      }
 
-  return { weapon, boughtAbility, shield, spent, remaining, emptySlots, agent, starsInfo };
-}
+      .credits-card {
+        border-left: none;
+        border-top: 1px solid var(--line);
+      }
 
-/* =========================================================
-   ASTRA — Star resource allocation
-   1 free Star + up to (total-1) additional Stars at costPerStar each.
-   Stars are then randomly distributed across ability charges
-   (Gravity Well: 1, Nova Pulse: 1, Nebula/Dissipate: 2).
-========================================================= */
-function generateAstraStars(agent, remaining){
-  const {total, free, costPerStar} = agent.stars;
-  const maxAdditional = total - free;
-  const affordableAdditional = Math.min(maxAdditional, Math.floor(remaining / costPerStar));
+      .summary-bar {
+        flex-wrap: wrap;
+      }
 
-  let boughtStars = 0;
-  if(affordableAdditional > 0){
-    boughtStars = Math.round(Math.random() * affordableAdditional);
-  }
-  const totalStars = free + boughtStars;
-  remaining -= boughtStars * costPerStar;
+      .summary-cell {
+        min-width: 45%;
+        border-left: none;
+        border-top: 1px solid var(--line);
+      }
 
-  // Build one slot per available charge, then shuffle for variety
-  const slots = [];
-  agent.abilities.forEach((ab, i)=>{
-    for(let c=0;c<ab.charges;c++){ slots.push(i); }
-  });
-  slots.sort(()=>Math.random()-0.5);
-
-  const securedCharges = agent.abilities.map(()=>0);
-  let starsLeft = totalStars;
-  slots.forEach(i=>{
-    if(starsLeft > 0){
-      securedCharges[i]++;
-      starsLeft--;
+      .banner h1 {
+        font-size: 38px;
+      }
     }
-  });
 
-  return { securedCharges, remaining, totalStars, boughtStars, starsUsed: totalStars - starsLeft, starsLeft };
-}
+    /* ===================== MOBILE / SMALL SCREENS ===================== */
+    @media (max-width:600px) {
+      .shell {
+        padding: 14px 12px 40px;
+      }
 
-/* =========================================================
-   RENDER: agent selector + header card
-========================================================= */
-function buildAgentIcon(){
-  return `<span style="color:var(--red)">${roleBadge(currentAgent().name[0],"")}</span>`;
-}
-function roleColorVar(role){
-  return {Duelist:"var(--red)", Initiator:"var(--amber)", Controller:"var(--violet)", Sentinel:"var(--teal)"}[role];
-}
-function renderAgentHeader(){
-  const a = currentAgent();
-  document.getElementById("agentName").textContent = a.name;
-  const roleEl = document.getElementById("agentRole");
-  roleEl.textContent = a.role;
-  roleEl.className = "role-tag " + a.cls;
-  roleEl.style.borderStyle = "solid"; roleEl.style.borderWidth="1px";
-  document.getElementById("agentPortrait").innerHTML = `<span style="color:${roleColorVar(a.role)}">${roleBadge(a.name[0])}</span>`;
-  document.getElementById("agentPortrait").style.color = roleColorVar(a.role);
+      .banner h1 {
+        font-size: 30px;
+      }
 
-  let starsNote = document.getElementById("agentStarsNote");
-  if(a.isAstra){
-    if(!starsNote){
-      starsNote = document.createElement("div");
-      starsNote.id = "agentStarsNote";
-      starsNote.className = "mono";
-      starsNote.style.cssText = "font-size:11px;color:var(--amber);letter-spacing:.04em;margin-top:6px;";
-      document.querySelector(".agent-meta").appendChild(starsNote);
+      .banner .eyebrow {
+        font-size: 9px;
+        letter-spacing: .3em;
+      }
+
+      /* Nav tabs never overflow horizontally */
+      .topnav {
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .nav-tab {
+        flex: 1 1 auto;
+        padding: 9px 10px;
+        font-size: 16px;
+        letter-spacing: .06em;
+        text-align: center;
+      }
+
+      /* Agent card row wraps instead of pushing select off-screen */
+      .agent-row {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .agent-select {
+        margin-left: 0;
+        flex: 1 1 100%;
+        width: 100%;
+      }
+
+      .agent-portrait {
+        width: 52px;
+        height: 52px;
+      }
+
+      .agent-meta h2 {
+        font-size: 22px;
+      }
+
+      /* Credits input + chips wrap and never overflow */
+      .credits-input-wrap {
+        flex-wrap: wrap;
+      }
+
+      .credits-input-wrap input {
+        width: 100%;
+        flex: 1 1 100%;
+      }
+
+      .quick-credits {
+        flex-wrap: wrap;
+        width: 100%;
+      }
+
+      .chip {
+        flex: 1 1 calc(50% - 8px);
+        text-align: center;
+        padding: 8px 6px;
+        font-size: 12px;
+      }
+
+      /* Summary bar / status pill stack cleanly */
+      .summary-cell {
+        min-width: 100%;
+        text-align: left;
+      }
+
+      .status-pill {
+        min-width: 100%;
+        border-left: none;
+        border-top: 1px solid var(--line);
+      }
+
+      /* Controls row: stack buttons full-width so nothing overflows */
+      .controls-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .pull-btn {
+        width: 100%;
+        font-size: 24px;
+        letter-spacing: .15em;
+        padding: 14px 0;
+      }
+
+      .reset-btn,
+      .sound-btn {
+        width: 100%;
+        justify-content: center;
+        font-size: 16px;
+        letter-spacing: .08em;
+        padding: 12px 0;
+      }
+
+      /* Agent roulette controls stack too */
+      .spin-controls {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .spin-btn {
+        width: 100%;
+        font-size: 22px;
+        letter-spacing: .15em;
+        padding: 14px 0;
+      }
+
+      .reset-btn[style*="flex:0"] {
+        width: 100%;
+      }
+
+      .a-card {
+        padding: 0 14px;
+        gap: 12px;
+      }
+
+      .a-portrait {
+        width: 60px;
+        height: 60px;
+      }
+
+      .a-portrait svg {
+        width: 36px;
+        height: 36px;
+      }
+
+      .a-name {
+        font-size: 24px;
+      }
+
+      /* Result card: stack vertically, buttons full-width and on-screen */
+      .result-card {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        padding: 16px;
+      }
+
+      .result-portrait {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+      }
+
+      .result-portrait svg {
+        width: 60px;
+        height: 60px;
+      }
+
+      .result-name {
+        font-size: 36px;
+      }
+
+      .result-desc {
+        max-width: 100%;
+      }
+
+      .result-actions {
+        margin-left: 0;
+        width: 100%;
+        margin-top: 12px;
+      }
+
+      .use-agent-btn {
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .reel-window {
+        margin: 10px 10px 0;
+      }
+
+      .reel-window.mini {
+        margin: 6px 10px 0;
+      }
     }
-    starsNote.textContent = `★ ${a.stars.free} Free Star · +◈${a.stars.costPerStar}/Star · Max ${a.stars.total}`;
-    starsNote.style.display = "";
-  } else if(starsNote){
-    starsNote.style.display = "none";
-  }
-}
-function populateAgentSelect(){
-  const sel = document.getElementById("agentSelect");
-  sel.innerHTML = AGENTS.map(a=>`<option value="${a.id}">${a.name.toUpperCase()} — ${a.role}</option>`).join("");
-  sel.value = selectedAgentId;
-  sel.addEventListener("change", ()=>{ selectedAgentId = sel.value; renderAgentHeader(); clearReels(); });
-}
+  </style>
+</head>
 
-/* =========================================================
-   RENDER: reels
-========================================================= */
-const ITEM_H = 150, MINI_H = 96;
+<body>
+  <div class="shell">
 
-function weaponItemHTML(w, revealed){
-  const free = w.cost===0;
-  return `<div class="reel-item"><div class="item-icon" style="color:var(--red)">${ICONS.weapon}</div>
+    <div class="banner">
+      <div class="eyebrow">Fan-Made Buy Phase Randomizer</div>
+      <h1>Valorant Gamble</h1>
+      <div class="banner-rule"></div>
+    </div>
+
+    <div class="topnav">
+      <button class="nav-tab active" data-page="buy">Buy Gamble</button>
+      <button class="nav-tab" data-page="agent">Agent Roulette</button>
+    </div>
+
+    <!-- ============ BUY GAMBLE PAGE ============ -->
+    <div class="page active" id="page-buy">
+
+      <div class="topbar">
+        <div class="agent-card">
+          <div class="card-label">Agent // Selected</div>
+          <div class="agent-row">
+            <div class="agent-portrait" id="agentPortrait"></div>
+            <div class="agent-meta">
+              <h2 id="agentName">RAZE</h2>
+              <span class="role-tag" id="agentRole">DUELIST</span>
+            </div>
+            <select class="agent-select" id="agentSelect"></select>
+          </div>
+        </div>
+        <div class="credits-card">
+          <div class="card-label">Balance</div>
+          <div class="credits-row">
+            <span class="credits-icon">◈</span>
+            <span class="credits-balance" id="creditsBalance">0</span>
+          </div>
+          <div class="credits-input-wrap">
+            <input type="number" id="creditsInput" min="0" max="9000" placeholder="Enter credits" value="0">
+            <div class="quick-credits">
+              <button class="chip" data-add="50">+50</button>
+              <button class="chip" data-add="100">+100</button>
+              <button class="chip" data-add="500">+500</button>
+              <button class="chip" data-add="1000">+1,000</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mode-row">
+        <span class="mode-label">Buy Style</span>
+        <button class="chip mode-chip" data-mode="CHAOS">Chaos</button>
+        <button class="chip mode-chip active" data-mode="BALANCED">Balanced</button>
+        <button class="chip mode-chip" data-mode="ECO">Eco</button>
+        <button class="chip mode-chip" data-mode="FORCE">Force</button>
+        <button class="chip mode-chip" data-mode="FULLBUY">Full Buy</button>
+      </div>
+
+      <div class="reels-wrap">
+        <div class="reel-col weapon">
+          <div class="reel-col-head">Weapon</div>
+          <div class="reel-window" id="weaponWindow">
+            <div class="reel-track" id="weaponTrack"></div>
+          </div>
+          <div style="flex:1"></div>
+        </div>
+        <div class="reel-col ability">
+          <div class="reel-col-head">Ability</div>
+          <div class="ability-slots">
+            <div class="reel-window mini" id="abilityWindow0">
+              <div class="reel-track" id="abilityTrack0"></div>
+            </div>
+            <div class="reel-window mini" id="abilityWindow1">
+              <div class="reel-track" id="abilityTrack1"></div>
+            </div>
+            <div class="reel-window mini" id="abilityWindow2">
+              <div class="reel-track" id="abilityTrack2"></div>
+            </div>
+          </div>
+        </div>
+        <div class="reel-col shield">
+          <div class="reel-col-head">Shield</div>
+          <div class="reel-window" id="shieldWindow">
+            <div class="reel-track" id="shieldTrack"></div>
+          </div>
+          <div style="flex:1"></div>
+        </div>
+      </div>
+
+      <div class="summary-bar">
+        <div class="summary-cell">
+          <div class="summary-label">Weapon</div>
+          <div class="summary-value" id="sumWeapon">—</div>
+        </div>
+        <div class="summary-cell">
+          <div class="summary-label">Abilities</div>
+          <div class="summary-value" id="sumAbilities">0/3 Secured</div>
+        </div>
+        <div class="summary-cell">
+          <div class="summary-label">Shield</div>
+          <div class="summary-value" id="sumShield">—</div>
+        </div>
+        <div class="summary-cell">
+          <div class="summary-label">Start</div>
+          <div class="summary-value mono" id="sumStart">◈0</div>
+        </div>
+        <div class="summary-cell">
+          <div class="summary-label">Spent</div>
+          <div class="summary-value spent mono" id="sumSpent">◈0</div>
+        </div>
+        <div class="summary-cell">
+          <div class="summary-label">Left</div>
+          <div class="summary-value remaining mono" id="sumLeft">◈0</div>
+        </div>
+        <div class="status-pill full" id="statusPill">
+          <div class="status-title" id="statusTitle">No Pull Yet</div>
+          <div class="status-sub" id="statusSub">0 empty slots</div>
+        </div>
+      </div>
+
+      <div class="warn-banner" id="warnBanner">Not enough Credits for a valid buy — add more Credits above.</div>
+
+      <div class="controls-row">
+        <button class="reset-btn" id="resetBtn">Reset</button>
+        <button class="pull-btn" id="pullBtn">Pull</button>
+        <button class="sound-btn" id="soundBtn">🔊 Sound On</button>
+      </div>
+      <div class="hint-row">Space = Pull &nbsp;•&nbsp; R = Reset &nbsp;•&nbsp; M = Mute</div>
+    </div>
+
+    <!-- ============ AGENT ROULETTE PAGE ============ -->
+    <div class="page" id="page-agent">
+      <div class="roulette-wrap">
+        <div class="roulette-window" id="rouletteWindow">
+          <div class="roulette-track" id="rouletteTrack"></div>
+        </div>
+        <div class="spin-controls">
+          <button class="reset-btn" id="spinResetBtn" style="flex:0;">Reset</button>
+          <button class="spin-btn" id="spinBtn">Spin</button>
+        </div>
+      </div>
+
+      <div class="result-card" id="resultCard">
+        <div class="result-portrait" id="resultPortrait"></div>
+        <div>
+          <div class="result-name" id="resultName">JETT</div>
+          <span class="role-tag" id="resultRole">Duelist</span>
+          <div class="result-desc" id="resultDesc"></div>
+        </div>
+        <div class="result-actions">
+          <button class="use-agent-btn" id="useAgentBtn">Use This Agent →</button>
+          <button class="use-agent-btn" id="spinAgainBtn">Spin Again</button>
+        </div>
+      </div>
+    </div>
+
+    <footer class="disclaimer">Unofficial fan-made tool. Not affiliated with or endorsed by Riot Games. VALORANT is a
+      trademark of Riot Games, Inc.</footer>
+  </div>
+
+  <script>
+    /* =========================================================
+       DATA
+    ========================================================= */
+    const WEAPONS = [
+      { name: "Classic", cost: 0, category: "Sidearm" }, { name: "Shorty", cost: 300, category: "Sidearm" }, { name: "Frenzy", cost: 450, category: "Sidearm" },
+      { name: "Ghost", cost: 500, category: "Sidearm" }, { name: "Bandit", cost: 600, category: "Sidearm" }, { name: "Sheriff", cost: 800, category: "Sidearm" },
+      { name: "Stinger", cost: 1100, category: "SMG" }, { name: "Spectre", cost: 1600, category: "SMG" }, { name: "Bucky", cost: 850, category: "Shotgun" },
+      { name: "Judge", cost: 1850, category: "Shotgun" }, { name: "Bulldog", cost: 2050, category: "Rifle" }, { name: "Guardian", cost: 2250, category: "Rifle" },
+      { name: "Phantom", cost: 2900, category: "Rifle" }, { name: "Vandal", cost: 2900, category: "Rifle" }, { name: "Marshal", cost: 950, category: "Sniper" },
+      { name: "Outlaw", cost: 2400, category: "Sniper" }, { name: "Operator", cost: 4700, category: "Sniper" }, { name: "Ares", cost: 1600, category: "Heavy" },
+      { name: "Odin", cost: 3200, category: "Heavy" }
+    ];
+    const SHIELDS = [
+      { name: "Nothing", cost: 0 }, { name: "Light Shields", cost: 400 }, { name: "Regen Shields", cost: 650 }, { name: "Heavy Shields", cost: 1000 }
+    ];
+
+    /* =========================================================
+       WEAPON CATEGORY WEIGHTS — per Buy Style / Gamble Mode.
+       Weights only apply to categories that have at least one
+       affordable weapon; unaffordable categories are dropped and
+       the remaining weights are renormalized (see selectWeapon()).
+    ========================================================= */
+    const CATEGORY_WEIGHTS = {
+      BALANCED: { Sidearm: 10, SMG: 10, Shotgun: 10, Rifle: 50, Sniper: 10, Heavy: 10 },
+      CHAOS: { Sidearm: 20, SMG: 20, Shotgun: 15, Rifle: 20, Sniper: 15, Heavy: 10 },
+      ECO: { Sidearm: 35, SMG: 35, Shotgun: 15, Rifle: 10, Sniper: 5, Heavy: 0 },
+      FORCE: { Sidearm: 5, SMG: 30, Shotgun: 25, Rifle: 30, Sniper: 5, Heavy: 5 },
+      FULLBUY: { Sidearm: 5, SMG: 5, Shotgun: 5, Rifle: 50, Sniper: 20, Heavy: 15 },
+    };
+
+    function ic(path, viewBox) { return `<svg viewBox="${viewBox || '0 0 24 24'}" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`; }
+    const ICONS = {
+      weapon: ic('<path d="M2 15l7-7 2 2-7 7-2-2z"/><path d="M9 8l4-4 3 3-4 4"/><path d="M14 5l3-3 4 4-3 3"/><circle cx="19" cy="8" r="1.2" fill="currentColor" stroke="none"/>'),
+      ability: ic('<path d="M12 2l2.5 6.5L21 11l-6.5 2.5L12 20l-2.5-6.5L3 11l6.5-2.5z"/>'),
+      shieldNothing: ic('<path d="M4 4l16 16M20 4L4 20" opacity=".5"/>'),
+      shieldLight: ic('<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/>'),
+      shieldRegen: ic('<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M15 9a3 3 0 1 0 .6 3.2" opacity=".85"/><path d="M15.6 8.2v2h-2" opacity=".85"/>'),
+      shieldHeavy: ic('<path d="M12 2l8 3.2v6c0 5.5-3.4 9.7-8 11.5-4.6-1.8-8-6-8-11.5v-6L12 2z"/><path d="M12 6v12" opacity=".6"/>'),
+    };
+
+    function roleBadge(letter, roleClass) {
+      return `<svg viewBox="0 0 40 40"><polygon points="20,2 38,10 38,30 20,38 2,30 2,10" fill="none" stroke="currentColor" stroke-width="1.4"/><text x="20" y="26" text-anchor="middle" font-family="Teko" font-size="20" fill="currentColor">${letter}</text></svg>`;
+    }
+
+    const AGENTS_RAW = [
+      {
+        id: "jett", name: "Jett", role: "Duelist", cls: "role-duelist", bd: "bd-duelist", desc: "A wind-fast duelist who dashes through crossfires and dares the enemy to keep up.",
+        abilities: [{ name: "Cloudburst", cost: 200 }, { name: "Updraft", cost: 150 }, { name: "Cloudburst", cost: 200 }]
+      },
+      {
+        id: "phoenix", name: "Phoenix", role: "Duelist", cls: "role-duelist", bd: "bd-duelist", desc: "A self-styled star who plays with fire, healing through the flames he throws.",
+        abilities: [{ name: "Curveball", cost: 250 }, { name: "Hot Hands", cost: 200 }, { name: "Blaze", cost: 150 }]
+      },
+      {
+        id: "raze", name: "Raze", role: "Duelist", cls: "role-duelist", bd: "bd-duelist", desc: "An explosives expert who clears corners loudly and leaves nothing standing.",
+        abilities: [{ name: "Blast Pack", cost: 200 }, { name: "Boom Bot", cost: 300 }, { name: "Blast Pack", cost: 200 }]
+      },
+      {
+        id: "reyna", name: "Reyna", role: "Duelist", cls: "role-duelist", bd: "bd-duelist", desc: "A soul-devouring duelist who turns every kill into fuel for the next fight.",
+        abilities: [{ name: "Leer", cost: 250 }, { name: "Devour/Dismiss", cost: 250 }, { name: "Leer", cost: 250 }]
+      },
+      {
+        id: "yoru", name: "Yoru", role: "Duelist", cls: "role-duelist", bd: "bd-duelist", desc: "A trickster duelist who rips through dimensions to appear where he's least expected.",
+        abilities: [{ name: "Blindside", cost: 250 }, { name: "Gatecrash", cost: 200 }, { name: "Fakeout", cost: 200 }]
+      },
+      {
+        id: "neon", name: "Neon", role: "Duelist", cls: "role-duelist", bd: "bd-duelist", desc: "A live-wire sprinter who outpaces every angle with raw electric speed.",
+        abilities: [{ name: "Fast Lane", cost: 250 }, { name: "High Gear", cost: 0 }, { name: "Relay Bolt", cost: 250 }]
+      },
+      {
+        id: "iso", name: "Iso", role: "Duelist", cls: "role-duelist", bd: "bd-duelist", desc: "A cool, calculating duelist who shields himself and bets everything on the duel.",
+        abilities: [{ name: "Contingency", cost: 200 }, { name: "Undercut", cost: 300 }, { name: "Double Tap", cost: 0 }]
+      },
+      {
+        id: "waylay", name: "Waylay", role: "Duelist", cls: "role-duelist", bd: "bd-duelist", desc: "A radiant entry fragger from Thailand who slows the fight down for everyone but herself, then dashes through the opening at light speed.",
+        abilities: [{ name: "Saturate", cost: 300 }, { name: "Lightspeed", cost: 300 }, { name: "Refract", cost: 0 }]
+      },
+      {
+        id: "sova", name: "Sova", role: "Initiator", cls: "role-initiator", bd: "bd-initiator", desc: "A hunter who reads the battlefield with drones and bolts before anyone moves.",
+        abilities: [{ name: "Owl Drone", cost: 400 }, { name: "Shock Bolt", cost: 150 }, { name: "Shock Bolt", cost: 150 }]
+      },
+      {
+        id: "breach", name: "Breach", role: "Initiator", cls: "role-initiator", bd: "bd-initiator", desc: "A bionic bulldozer who fires his charges straight through walls to soften a site.",
+        abilities: [{ name: "Aftershock", cost: 200 }, { name: "Flashpoint", cost: 250 }, { name: "Flashpoint", cost: 250 }]
+      },
+      {
+        id: "skye", name: "Skye", role: "Initiator", cls: "role-initiator", bd: "bd-initiator", desc: "A scout who sends trailblazing creatures ahead to flush enemies into the open.",
+        abilities: [{ name: "Trailblazer", cost: 300 }, { name: "Guiding Light", cost: 250 }, { name: "Regrowth", cost: 150 }]
+      },
+      {
+        id: "kayo", name: "KAY/O", role: "Initiator", cls: "role-initiator", bd: "bd-initiator", desc: "A battle-forged robot who suppresses enemy abilities before the fight even starts.",
+        abilities: [{ name: "FRAG/ment", cost: 200 }, { name: "FLASH/drive", cost: 250 }, { name: "FLASH/drive", cost: 250 }]
+      },
+      {
+        id: "fade", name: "Fade", role: "Initiator", cls: "role-initiator", bd: "bd-initiator", desc: "A nightmare-hunter who drags enemies' deepest fears out into the light.",
+        abilities: [{ name: "Prowler", cost: 250 }, { name: "Seize", cost: 200 }, { name: "Prowler", cost: 250 }]
+      },
+      {
+        id: "gekko", name: "Gekko", role: "Initiator", cls: "role-initiator", bd: "bd-initiator", desc: "A street-smart initiator whose creature companions do the dirty work for him.",
+        abilities: [{ name: "Mosh Pit", cost: 250 }, { name: "Wingman", cost: 300 }, { name: "Dizzy", cost: 0 }]
+      },
+      {
+        id: "tejo", name: "Tejo", role: "Initiator", cls: "role-initiator", bd: "bd-initiator", desc: "A Colombian explosives consultant who guides missiles and a stealth drone to flush enemies out from any distance.",
+        abilities: [{ name: "Special Delivery", cost: 200 }, { name: "Stealth Drone", cost: 400 }, { name: "Guided Salvo", cost: 150 }]
+      },
+      {
+        id: "brimstone", name: "Brimstone", role: "Controller", cls: "role-controller", bd: "bd-controller", desc: "A veteran commander who calls in orbital smokes with no-nonsense precision.",
+        abilities: [{ name: "Incendiary", cost: 250 }, { name: "Sky Smoke", cost: 100 }, { name: "Stim Beacon", cost: 200 }, { name: "Sky Smoke", cost: 100 }]
+      },
+      {
+        id: "omen", name: "Omen", role: "Controller", cls: "role-controller", bd: "bd-controller", desc: "A shadow that stalks the edges of memory, blinding sightlines and teleporting through the dark.",
+        abilities: [{ name: "Shrouded Step", cost: 100 }, { name: "Paranoia", cost: 250 }, { name: "Dark Cover", cost: 150 }, { name: "Shrouded Step", cost: 100 }]
+      },
+      {
+        id: "viper", name: "Viper", role: "Controller", cls: "role-controller", bd: "bd-controller", desc: "A chemist who poisons the field with toxic gas walls that punish anyone who lingers.",
+        abilities: [{ name: "Poison Cloud", cost: 200 }, { name: "Toxic Screen", cost: 0 }, { name: "Snake Bite", cost: 300 }]
+      },
+      {
+        id: "astra", name: "Astra", role: "Controller", cls: "role-controller", bd: "bd-controller", desc: "A cosmic strategist who plays the entire map at once from among the stars.",
+        isAstra: true, stars: { total: 5, free: 1, costPerStar: 150 },
+        abilities: [
+          { name: "Gravity Well", charges: 1, effect: "Cripple, Displacement" },
+          { name: "Nova Pulse", charges: 1, effect: "Concuss" },
+          { name: "Nebula/Dissipate", charges: 2, effect: "Smoke" }
+        ]
+      },
+      {
+        id: "harbor", name: "Harbor", role: "Controller", cls: "role-controller", bd: "bd-controller", desc: "An ancient warrior who bends water into shields and crushing tidal walls.",
+        abilities: [{ name: "Cove", cost: 0 }, { name: "Storm Surge", cost: 200 }, { name: "High Tide", cost: 300 }]
+      },
+      {
+        id: "clove", name: "Clove", role: "Controller", cls: "role-controller", bd: "bd-controller", desc: "An immortal trickster controller who cheats death and toys with the enemy's plans.",
+        abilities: [{ name: "Pick-Me-Up", cost: 200 }, { name: "Meddle", cost: 250 }, { name: "Ruse", cost: 150 }]
+      },
+      {
+        id: "miks", name: "Miks", role: "Controller", cls: "role-controller", bd: "bd-controller", desc: "A sound-based controller whose kit splits between smokes, a shared combat stim, and the game's first deployable heal.",
+        abilities: [{ name: "Harmonize", cost: 200 }, { name: "M-Pulse", cost: 250 }, { name: "Waveform", cost: 100 }]
+      },
+      {
+        id: "cypher", name: "Cypher", role: "Sentinel", cls: "role-sentinel", bd: "bd-sentinel", desc: "A private eye who wires every angle with cameras and tripwires before the round even begins.",
+        abilities: [{ name: "Trapwire", cost: 200 }, { name: "Cyber Cage", cost: 100 }, { name: "Trapwire", cost: 200 }, { name: "Cyber Cage", cost: 100 }]
+      },
+      {
+        id: "killjoy", name: "Killjoy", role: "Sentinel", cls: "role-sentinel", bd: "bd-sentinel", desc: "A gadgeteer who defends sites with turrets, swarms, and alarms of her own design.",
+        abilities: [{ name: "Alarmbot", cost: 200 }, { name: "Nanoswarm", cost: 200 }, { name: "Nanoswarm", cost: 200 }]
+      },
+      {
+        id: "sage", name: "Sage", role: "Sentinel", cls: "role-sentinel", bd: "bd-sentinel", desc: "A healer who slows the enemy's advance and brings her allies back from the brink.",
+        abilities: [{ name: "Slow Orb", cost: 200 }, { name: "Slow Orb", cost: 200 }, { name: "Barrier Orb", cost: 300 }]
+      },
+      {
+        id: "chamber", name: "Chamber", role: "Sentinel", cls: "role-sentinel", bd: "bd-sentinel", desc: "A French gunsmith who holds angles with custom hardware and teleports out of danger.",
+        abilities: [{ name: "Trademark", cost: 200 }, { name: "Headhunter", cost: 100, charges: 8 }, { name: "Rendezvous", cost: 0 }]
+      },
+      {
+        id: "deadlock", name: "Deadlock", role: "Sentinel", cls: "role-sentinel", bd: "bd-sentinel", desc: "A Norwegian sentinel who locks down sites with sonic nets and restraining mesh.",
+        abilities: [{ name: "Barrier Mesh", cost: 300 }, { name: "Sonic Sensor", cost: 200 }, { name: "Sonic Sensor", cost: 200 }]
+      },
+      {
+        id: "veto", name: "Veto", role: "Sentinel", cls: "role-sentinel", bd: "bd-sentinel", desc: "A Senegalese sentinel whose mutated biology lets him trap, deafen, and consume enemy utility before it ever lands.",
+        abilities: [{ name: "Chokehold", cost: 200 }, { name: "Crosscut", cost: 200 }, { name: "Crosscut", cost: 200 }]
+      },
+      {
+        id: "vyse", name: "Vyse", role: "Sentinel", cls: "role-sentinel", bd: "bd-sentinel", desc: "A metal-forged sentinel who fortifies chokepoints with vines and razor traps.",
+        abilities: [{ name: "Razorvine", cost: 150 }, { name: "Shear", cost: 200 }, { name: "Razorvine", cost: 150 }]
+      },
+    ];
+    const AGENTS = [...AGENTS_RAW].sort((a, b) => a.name.localeCompare(b.name));
+
+    /* =========================================================
+       STATE
+    ========================================================= */
+    let selectedAgentId = "raze";
+    let credits = 0;
+    let soundOn = true;
+    let lastLoadout = null;
+    let spinning = false;
+    let buyMode = "BALANCED";
+
+    /* =========================================================
+       AUDIO (WebAudio synth — no external files)
+    ========================================================= */
+    let actx = null;
+    function ensureAudio() { if (!actx) { try { actx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { } } }
+    function beep(freq, dur, type, vol) {
+      if (!soundOn) return;
+      ensureAudio();
+      if (!actx) return;
+      const t = actx.currentTime;
+      const osc = actx.createOscillator();
+      const gain = actx.createGain();
+      osc.type = type || "square";
+      osc.frequency.setValueAtTime(freq, t);
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(vol || 0.06, t + 0.005);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + dur);
+      osc.connect(gain).connect(actx.destination);
+      osc.start(t); osc.stop(t + dur + 0.02);
+    }
+    function tickSound() { beep(1200 + Math.random() * 300, 0.05, "square", 0.045); }
+    function winSound() { beep(660, 0.09, "triangle", 0.08); setTimeout(() => beep(880, 0.12, "triangle", 0.08), 90); setTimeout(() => beep(1320, 0.18, "triangle", 0.09), 190); }
+    function clunkSound() { beep(180, 0.12, "sawtooth", 0.07); }
+
+    /* =========================================================
+       HELPERS
+    ========================================================= */
+    function fmt(n) { return "◈" + n.toLocaleString(); }
+    function weightedPick(arr) {
+      // simple uniform-random pick from an array of items
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+    function currentAgent() { return AGENTS.find(a => a.id === selectedAgentId); }
+
+    /* =========================================================
+       WEIGHTED WEAPON CATEGORY SYSTEM
+       Generic weighted-random selector: given a { category: weight }
+       map, removes zero/absent weight, then picks a category with
+       probability proportional to its weight. Works for any weight
+       table passed in — nothing here is tied to a specific mode.
+    ========================================================= */
+    function weightedRandomCategory(weights) {
+      const entries = Object.entries(weights).filter(([, w]) => w > 0);
+      if (entries.length === 0) return null;
+      const total = entries.reduce((s, [, w]) => s + w, 0);
+      let r = Math.random() * total;
+      for (const [cat, w] of entries) {
+        if (r < w) return cat;
+        r -= w;
+      }
+      return entries[entries.length - 1][0];
+    }
+
+    // Select a weapon using the current Buy Style's category weights,
+    // restricted to categories/weapons the player can actually afford.
+    // New weapons are picked up automatically as long as they declare
+    // a `category` matching one of the CATEGORY_WEIGHTS keys.
+    function selectWeapon(remaining, mode) {
+      const modeWeights = CATEGORY_WEIGHTS[mode] || CATEGORY_WEIGHTS.BALANCED;
+
+      const byCategory = {};
+      WEAPONS.forEach(w => {
+        (byCategory[w.category] = byCategory[w.category] || []).push(w);
+      });
+
+      const availableWeights = {};
+      Object.keys(byCategory).forEach(cat => {
+        const affordable = byCategory[cat].filter(w => w.cost <= remaining);
+        if (affordable.length > 0) {
+          availableWeights[cat] = modeWeights[cat] || 0;
+        }
+      });
+
+      // Safety net: if every available category has 0 weight in this mode
+      // (e.g. an ECO buy where only a 0%-weighted category is affordable),
+      // fall back to equal weighting rather than failing to pick anything.
+      if (Object.values(availableWeights).every(w => w === 0)) {
+        Object.keys(availableWeights).forEach(cat => { availableWeights[cat] = 1; });
+      }
+
+      const category = weightedRandomCategory(availableWeights);
+      const pool = category ? byCategory[category].filter(w => w.cost <= remaining) : WEAPONS.filter(w => w.cost <= remaining);
+      // Uniform random pick *within* the chosen category — no weapon inside
+      // a category is favored over another.
+      return pool.length ? weightedPick(pool) : WEAPONS[0];
+    }
+
+    /* =========================================================
+       GENERIC ABILITY CHARGE SYSTEM
+       Normalizes an agent's raw ability list into a deduplicated
+       list of { name, cost, charges } groups, where `charges` is
+       the maximum purchasable quantity for that ability.
+    
+       Supports two input formats interchangeably, per-agent:
+       FORMAT A — explicit charges:  { name, cost, charges: N }
+       FORMAT B — duplicate entries: [{name,cost}, {name,cost}, ...]
+       Duplicate entries with the same name are grouped into a
+       single ability whose `charges` equals the number of
+       duplicates (or the explicit `charges` value if present).
+       This works generically for any agent — nothing here is
+       hardcoded to a specific ability or agent name.
+    ========================================================= */
+    function normalizeAbilities(agent) {
+      if (agent.isAstra) {
+        // Astra's Stars are handled by generateAstraStars(); her ability
+        // list already carries explicit `charges` and no per-ability cost.
+        return agent.abilities.map(ab => ({ ...ab }));
+      }
+      const order = [];
+      const map = new Map();
+      agent.abilities.forEach(ab => {
+        if (map.has(ab.name)) {
+          const g = map.get(ab.name);
+          // If any entry declares explicit charges, that value wins (Format A).
+          // Otherwise every repeated entry adds one more charge (Format B).
+          g.charges = (typeof ab.charges === "number") ? Math.max(g.charges, ab.charges) : g.charges + 1;
+        } else {
+          const charges = (typeof ab.charges === "number") ? ab.charges : 1;
+          map.set(ab.name, { name: ab.name, cost: ab.cost || 0, charges });
+          order.push(ab.name);
+        }
+      });
+      return order.map(n => map.get(n));
+    }
+
+    // Pad/truncate a grouped ability list to exactly 3 slots (matching the
+    // existing 3-reel UI) using `null` for any unused slot.
+    function padAbilityGroups(groups) {
+      const padded = groups.slice(0, 3);
+      while (padded.length < 3) padded.push(null);
+      return padded;
+    }
+
+    /* =========================================================
+       BUY LOGIC — generate a valid, varied loadout for given credits
+    ========================================================= */
+    // At 5000+ Credits, the normal weighted-category randomizer is replaced by
+    // a high-budget "buy everything" generator (see generateBuyEverythingLoadout).
+    const BUY_EVERYTHING_THRESHOLD = 5000;
+
+    /* =========================================================
+       BUY EVERYTHING — for 5000+ Credits.
+       Priority order (highest first): max abilities/charges > max shield
+       > weapon. Abilities and shield are bought deterministically at their
+       maximum affordable amount; whatever Credits remain after that pick
+       a random affordable weapon (uniform — the weighted category system
+       is intentionally NOT used in this mode). If the full "everything"
+       loadout doesn't fit, lower-priority items (shield, then weapon)
+       simply end up with less room rather than ever breaking the budget.
+    ========================================================= */
+    function generateBuyEverythingLoadout(totalCredits) {
+      let remaining = totalCredits;
+      const agent = currentAgent();
+      const rawGroups = normalizeAbilities(agent);
+      const abilityGroups = padAbilityGroups(rawGroups);
+      let boughtAbility, starsInfo = null;
+
+      if (agent.isAstra) {
+        // Use every Star possible: the 1 free Star, plus as many paid Stars
+        // (150 each) as the budget allows, up to the 5-Star cap.
+        const { total, free, costPerStar } = agent.stars;
+        const maxAdditional = total - free;
+        const boughtStars = Math.min(maxAdditional, Math.floor(remaining / costPerStar));
+        const totalStars = free + boughtStars;
+        remaining -= boughtStars * costPerStar;
+
+        // Fill each ability's charges to its max, in order, until Stars run out.
+        const securedCharges = agent.abilities.map(() => 0);
+        let starsLeft = totalStars;
+        agent.abilities.forEach((ab, i) => {
+          const take = Math.min(ab.charges, starsLeft);
+          securedCharges[i] = take;
+          starsLeft -= take;
+        });
+        boughtAbility = securedCharges;
+        starsInfo = { securedCharges, remaining, totalStars, boughtStars, starsUsed: totalStars - starsLeft, starsLeft };
+      } else {
+        // Buy the maximum affordable quantity of every ability group.
+        boughtAbility = abilityGroups.map(() => 0);
+        rawGroups.forEach((g, i) => {
+          const cost = safeNumber(g.cost);
+          const charges = safeNumber(g.charges);
+          const maxAffordable = cost > 0 ? Math.min(charges, Math.floor(remaining / cost)) : charges;
+          if (maxAffordable > 0) {
+            boughtAbility[i] = maxAffordable;
+            remaining -= cost * maxAffordable;
+          }
+        });
+      }
+
+      // Shield: the best (most expensive) shield still affordable — not random.
+      const affordableShields = SHIELDS.filter(s => s.cost <= remaining).sort((a, b) => b.cost - a.cost);
+      const shield = affordableShields.length ? affordableShields[0] : SHIELDS[0];
+      remaining -= safeNumber(shield.cost);
+
+      // Weapon: whatever's left over — a uniform random pick among affordable
+      // weapons (category weighting is deliberately skipped in this mode).
+      const affordableWeapons = WEAPONS.filter(w => w.cost <= remaining);
+      const weapon = affordableWeapons.length ? weightedPick(affordableWeapons) : (WEAPONS.find(w => w.cost === 0) || WEAPONS[0]);
+      remaining -= safeNumber(weapon.cost);
+
+      let spent = totalCredits - remaining;
+      if (!Number.isFinite(spent)) spent = 0;
+      if (!Number.isFinite(remaining)) remaining = totalCredits;
+
+      let emptySlots;
+      if (agent.isAstra) {
+        emptySlots = agent.abilities.reduce((sum, ab, i) => sum + (ab.charges - boughtAbility[i]), 0) + (shield.cost === 0 ? 1 : 0);
+      } else {
+        const realCount = abilityGroups.filter(Boolean).length;
+        const securedCount = abilityGroups.filter((g, i) => g && boughtAbility[i] > 0).length;
+        emptySlots = (realCount - securedCount) + (shield.cost === 0 ? 1 : 0);
+      }
+
+      return { weapon, boughtAbility, abilityGroups, shield, spent, remaining, emptySlots, agent, starsInfo, buyEverything: true };
+    }
+
+    function generateLoadout(totalCredits) {
+      totalCredits = safeNumber(totalCredits);
+
+      // 5000+ Credits: skip the weighted weapon-category randomizer entirely
+      // and buy everything the budget allows instead.
+      if (totalCredits >= BUY_EVERYTHING_THRESHOLD) {
+        return generateBuyEverythingLoadout(totalCredits);
+      }
+
+      let remaining = totalCredits;
+      const agent = currentAgent();
+
+      // --- Weapon: weighted-random by category (per current Buy Style),
+      //     then uniform-random among affordable weapons within that category.
+      const weapon = selectWeapon(remaining, buyMode);
+      remaining -= safeNumber(weapon.cost);
+
+      // --- Abilities: shuffle the ability groups, roll each with a purchase
+      //     chance if affordable, then pick a random valid QUANTITY of charges
+      //     (never exceeding the group's max charges nor the player's Credits).
+      let boughtAbility, starsInfo = null;
+      const rawGroups = normalizeAbilities(agent);
+      const abilityGroups = padAbilityGroups(rawGroups);
+
+      if (agent.isAstra) {
+        const astraResult = generateAstraStars(agent, remaining);
+        boughtAbility = astraResult.securedCharges; // array of charge-counts secured per ability slot
+        remaining = astraResult.remaining;
+        starsInfo = astraResult;
+      } else {
+        const order = rawGroups.map((_, i) => i).sort(() => Math.random() - 0.5);
+        boughtAbility = abilityGroups.map(() => 0);
+        order.forEach(i => {
+          const g = rawGroups[i];
+          const cost = safeNumber(g.cost);
+          const charges = safeNumber(g.charges);
+          // Max quantity affordable right now, capped by both the ability's
+          // own max charges AND the player's remaining Credits.
+          const maxAffordable = cost > 0 ? Math.min(charges, Math.floor(remaining / cost)) : charges;
+          if (maxAffordable <= 0) return; // can't afford even 1 — skip entirely
+          const buyChance = cost === 0 ? 0.9 : 0.65; // free abilities almost always taken, paid ones sometimes skipped for variety
+          if (Math.random() < buyChance) {
+            const qty = cost === 0 ? 1 : (1 + Math.floor(Math.random() * maxAffordable));
+            boughtAbility[i] = qty;
+            remaining -= cost * qty;
+          }
+        });
+      }
+
+      // --- Shield: weighted based on what's left, with randomness for variety
+      // SHIELDS = [Nothing(0), Light(400), Regen(650), Heavy(1000)]
+      let shield = SHIELDS[0];
+      const r = Math.random();
+      if (remaining >= 1000) {
+        shield = r < 0.55 ? SHIELDS[3] : (r < 0.75 ? SHIELDS[2] : (r < 0.92 ? SHIELDS[1] : SHIELDS[0]));
+      } else if (remaining >= 650) {
+        shield = r < 0.6 ? SHIELDS[2] : (r < 0.85 ? SHIELDS[1] : SHIELDS[0]);
+      } else if (remaining >= 400) {
+        shield = r < 0.7 ? SHIELDS[1] : SHIELDS[0];
+      }
+      remaining -= safeNumber(shield.cost);
+
+      let spent = totalCredits - remaining;
+      // Final safety net: a valid loadout must never carry NaN/Infinity into
+      // the summary bar. If sanitization somehow still failed, zero it out
+      // rather than ever displaying an invalid number.
+      if (!Number.isFinite(spent)) spent = 0;
+      if (!Number.isFinite(remaining)) remaining = totalCredits;
+
+      let emptySlots;
+      if (agent.isAstra) {
+        emptySlots = agent.abilities.reduce((sum, ab, i) => sum + (ab.charges - boughtAbility[i]), 0) + (shield.cost === 0 ? 1 : 0);
+      } else {
+        const realCount = abilityGroups.filter(Boolean).length;
+        const securedCount = abilityGroups.filter((g, i) => g && boughtAbility[i] > 0).length;
+        emptySlots = (realCount - securedCount) + (shield.cost === 0 ? 1 : 0);
+      }
+
+      return { weapon, boughtAbility, abilityGroups, shield, spent, remaining, emptySlots, agent, starsInfo };
+    }
+
+    /* =========================================================
+       ASTRA — Star resource allocation
+       1 free Star + up to (total-1) additional Stars at costPerStar each.
+       Stars are then randomly distributed across ability charges
+       (Gravity Well: 1, Nova Pulse: 1, Nebula/Dissipate: 2).
+    ========================================================= */
+    function generateAstraStars(agent, remaining) {
+      const { total, free, costPerStar } = agent.stars;
+      const maxAdditional = total - free;
+      const affordableAdditional = Math.min(maxAdditional, Math.floor(remaining / costPerStar));
+
+      let boughtStars = 0;
+      if (affordableAdditional > 0) {
+        boughtStars = Math.round(Math.random() * affordableAdditional);
+      }
+      const totalStars = free + boughtStars;
+      remaining -= boughtStars * costPerStar;
+
+      // Build one slot per available charge, then shuffle for variety
+      const slots = [];
+      agent.abilities.forEach((ab, i) => {
+        for (let c = 0; c < ab.charges; c++) { slots.push(i); }
+      });
+      slots.sort(() => Math.random() - 0.5);
+
+      const securedCharges = agent.abilities.map(() => 0);
+      let starsLeft = totalStars;
+      slots.forEach(i => {
+        if (starsLeft > 0) {
+          securedCharges[i]++;
+          starsLeft--;
+        }
+      });
+
+      return { securedCharges, remaining, totalStars, boughtStars, starsUsed: totalStars - starsLeft, starsLeft };
+    }
+
+    /* =========================================================
+       RENDER: agent selector + header card
+    ========================================================= */
+    function buildAgentIcon() {
+      return `<span style="color:var(--red)">${roleBadge(currentAgent().name[0], "")}</span>`;
+    }
+    function roleColorVar(role) {
+      return { Duelist: "var(--red)", Initiator: "var(--amber)", Controller: "var(--violet)", Sentinel: "var(--teal)" }[role];
+    }
+    function renderAgentHeader() {
+      const a = currentAgent();
+      document.getElementById("agentName").textContent = a.name;
+      const roleEl = document.getElementById("agentRole");
+      roleEl.textContent = a.role;
+      roleEl.className = "role-tag " + a.cls;
+      roleEl.style.borderStyle = "solid"; roleEl.style.borderWidth = "1px";
+      document.getElementById("agentPortrait").innerHTML = `<span style="color:${roleColorVar(a.role)}">${roleBadge(a.name[0])}</span>`;
+      document.getElementById("agentPortrait").style.color = roleColorVar(a.role);
+
+      let starsNote = document.getElementById("agentStarsNote");
+      if (a.isAstra) {
+        if (!starsNote) {
+          starsNote = document.createElement("div");
+          starsNote.id = "agentStarsNote";
+          starsNote.className = "mono";
+          starsNote.style.cssText = "font-size:11px;color:var(--amber);letter-spacing:.04em;margin-top:6px;";
+          document.querySelector(".agent-meta").appendChild(starsNote);
+        }
+        starsNote.textContent = `★ ${a.stars.free} Free Star · +◈${a.stars.costPerStar}/Star · Max ${a.stars.total}`;
+        starsNote.style.display = "";
+      } else if (starsNote) {
+        starsNote.style.display = "none";
+      }
+    }
+    function populateAgentSelect() {
+      const sel = document.getElementById("agentSelect");
+      sel.innerHTML = AGENTS.map(a => `<option value="${a.id}">${a.name.toUpperCase()} — ${a.role}</option>`).join("");
+      sel.value = selectedAgentId;
+      sel.addEventListener("change", () => { selectedAgentId = sel.value; renderAgentHeader(); clearReels(); });
+    }
+
+    /* =========================================================
+       RENDER: reels
+    ========================================================= */
+    const ITEM_H = 150, MINI_H = 96;
+
+    function weaponItemHTML(w, revealed) {
+      const free = w.cost === 0;
+      return `<div class="reel-item"><div class="item-icon" style="color:var(--red)">${ICONS.weapon}</div>
     <div class="item-name">${w.name}</div>
-    <div class="item-cost ${free?'free':''}">${free? 'OWNED':'◈'+w.cost}</div>
-    ${revealed?'<span class="secured-tag">SECURED</span>':''}
+    <div class="item-cost ${free ? 'free' : ''}">${free ? 'OWNED' : '◈' + w.cost}</div>
+    ${revealed ? '<span class="secured-tag">SECURED</span>' : ''}
   </div>`;
-}
-function abilityItemHTML(ab, bought){
-  if(ab===null){
-    return `<div class="reel-item mini item-nothing"><div class="item-icon" style="color:var(--text-faint)">${ICONS.shieldNothing}</div>
+    }
+    function abilityItemHTML(ab, qty) {
+      if (ab === null || !qty) {
+        return `<div class="reel-item mini item-nothing"><div class="item-icon" style="color:var(--text-faint)">${ICONS.shieldNothing}</div>
       <div class="item-name">NOTHING</div><div class="item-cost">NO PURCHASE</div></div>`;
-  }
-  const free = ab.cost===0;
-  return `<div class="reel-item mini"><div class="item-icon" style="color:var(--amber)">${ICONS.ability}</div>
-    <div class="item-name">${ab.name}</div>
-    <div class="item-cost ${free?'free':''}">${free?'FREE':'◈'+ab.cost}</div>
-    ${bought?'<span class="secured-tag">SECURED</span>':'<span class="no-buy-tag">SKIPPED</span>'}
+      }
+      const free = ab.cost === 0;
+      const label = ab.charges > 1 ? `${ab.name} \u00d7${qty}` : ab.name;
+      const totalCost = ab.cost * qty;
+      return `<div class="reel-item mini"><div class="item-icon" style="color:var(--amber)">${ICONS.ability}</div>
+    <div class="item-name">${label}</div>
+    <div class="item-cost ${free ? 'free' : ''}">${free ? 'FREE' : '◈' + totalCost}</div>
+    <span class="secured-tag">SECURED</span>
   </div>`;
-}
-function astraAbilityItemHTML(ab, securedCount){
-  const none = securedCount === 0;
-  const full = securedCount >= ab.charges;
-  const costLabel = ab.charges > 1 ? `${securedCount}/${ab.charges} ★ Used` : (none ? 'FREE' : '1 ★ Used');
-  const tag = none
-    ? `<span class="no-buy-tag">SKIPPED</span>`
-    : `<span class="secured-tag">${full ? 'SECURED' : `${securedCount}/${ab.charges} ★`}</span>`;
-  return `<div class="reel-item mini ${none?'item-nothing':''}"><div class="item-icon" style="color:var(--amber)">${ICONS.ability}</div>
+    }
+    function astraAbilityItemHTML(ab, securedCount) {
+      const none = securedCount === 0;
+      const full = securedCount >= ab.charges;
+      const costLabel = ab.charges > 1 ? `${securedCount}/${ab.charges} ★ Used` : (none ? 'FREE' : '1 ★ Used');
+      const tag = none
+        ? `<span class="no-buy-tag">SKIPPED</span>`
+        : `<span class="secured-tag">${full ? 'SECURED' : `${securedCount}/${ab.charges} ★`}</span>`;
+      return `<div class="reel-item mini ${none ? 'item-nothing' : ''}"><div class="item-icon" style="color:var(--amber)">${ICONS.ability}</div>
     <div class="item-name">${ab.name}</div>
     <div class="item-cost free">${costLabel}</div>
     ${tag}
   </div>`;
-}
-function shieldItemHTML(s, revealed){
-  const icon = s.cost===0 ? ICONS.shieldNothing
-    : s.cost===400 ? ICONS.shieldLight
-    : s.cost===650 ? ICONS.shieldRegen
-    : ICONS.shieldHeavy;
-  const free = s.cost===0;
-  return `<div class="reel-item ${free?'item-nothing':''}"><div class="item-icon" style="color:var(--cyan)">${icon}</div>
+    }
+    function shieldItemHTML(s, revealed) {
+      const icon = s.cost === 0 ? ICONS.shieldNothing
+        : s.cost === 400 ? ICONS.shieldLight
+          : s.cost === 650 ? ICONS.shieldRegen
+            : ICONS.shieldHeavy;
+      const free = s.cost === 0;
+      return `<div class="reel-item ${free ? 'item-nothing' : ''}"><div class="item-icon" style="color:var(--cyan)">${icon}</div>
     <div class="item-name">${s.name.toUpperCase()}</div>
-    <div class="item-cost ${free?'':''}">${free?'NO PURCHASE':'◈'+s.cost}</div>
-    ${revealed && !free?'<span class="secured-tag">SECURED</span>':''}
+    <div class="item-cost ${free ? '' : ''}">${free ? 'NO PURCHASE' : '◈' + s.cost}</div>
+    ${revealed && !free ? '<span class="secured-tag">SECURED</span>' : ''}
   </div>`;
-}
+    }
 
-function spinReel(trackId, windowId, itemHeight, spinItemsHTML, finalItemHTML, duration, onDone){
-  const track = document.getElementById(trackId);
-  const win = document.getElementById(windowId);
-  win.classList.remove("landed");
-  const N = spinItemsHTML.length;
-  track.style.transition = "none";
-  track.style.transform = "translateY(0px)";
-  track.innerHTML = spinItemsHTML.join("") + finalItemHTML;
-  // force reflow
-  void track.offsetHeight;
-  const targetY = -(itemHeight * N);
-  requestAnimationFrame(()=>{
-    track.style.transition = `transform ${duration}ms cubic-bezier(.12,.72,.15,1)`;
-    track.style.transform = `translateY(${targetY}px)`;
-  });
-  const tickInterval = setInterval(tickSound, 90);
-  setTimeout(()=>{
-    clearInterval(tickInterval);
-    win.classList.add("landed");
-    clunkSound();
-    if(onDone) onDone();
-  }, duration + 20);
-}
-
-function randomSpinList(pool, count, mapFn){
-  const arr = [];
-  for(let i=0;i<count;i++){ arr.push(mapFn(weightedPick(pool))); }
-  return arr;
-}
-
-function clearReels(){
-  ["weaponTrack","abilityTrack0","abilityTrack1","abilityTrack2","shieldTrack"].forEach(id=>{
-    document.getElementById(id).innerHTML = "";
-  });
-  ["weaponWindow","abilityWindow0","abilityWindow1","abilityWindow2","shieldWindow"].forEach(id=>{
-    document.getElementById(id).classList.remove("landed");
-  });
-}
-
-/* =========================================================
-   SUMMARY BAR
-========================================================= */
-function updateSummary(loadout, startCredits){
-  document.getElementById("sumWeapon").textContent = loadout ? loadout.weapon.name : "—";
-  let abilitiesText;
-  if(loadout && loadout.agent.isAstra){
-    const totalCharges = loadout.agent.abilities.reduce((s,ab)=>s+ab.charges,0);
-    const securedTotal = loadout.boughtAbility.reduce((s,c)=>s+c,0);
-    abilitiesText = `${securedTotal}/${totalCharges} ★ (${loadout.starsInfo.totalStars}/${loadout.agent.stars.total} Stars)`;
-  } else {
-    const boughtCount = loadout ? loadout.boughtAbility.filter(Boolean).length : 0;
-    abilitiesText = `${boughtCount}/3 Secured`;
-  }
-  document.getElementById("sumAbilities").textContent = abilitiesText;
-  document.getElementById("sumShield").textContent = loadout ? loadout.shield.name : "—";
-  document.getElementById("sumStart").textContent = fmt(startCredits);
-  document.getElementById("sumSpent").textContent = fmt(loadout ? loadout.spent : 0);
-  const leftEl = document.getElementById("sumLeft");
-  const left = loadout ? loadout.remaining : startCredits;
-  leftEl.textContent = fmt(left);
-  leftEl.classList.toggle("neg", left < 0);
-
-  const pill = document.getElementById("statusPill");
-  const title = document.getElementById("statusTitle");
-  const sub = document.getElementById("statusSub");
-  if(!loadout){
-    pill.className = "status-pill full"; title.textContent = "No Pull Yet"; sub.textContent = "Enter Credits & Pull";
-  } else if(loadout.emptySlots === 0){
-    pill.className = "status-pill full"; title.textContent = "Full Loadout"; sub.textContent = "0 empty slots";
-  } else if(loadout.emptySlots >= 4){
-    pill.className = "status-pill empty"; title.textContent = "Bare Buy"; sub.textContent = `${loadout.emptySlots} empty slots`;
-  } else {
-    pill.className = "status-pill partial"; title.textContent = "Partial Loadout"; sub.textContent = `${loadout.emptySlots} empty slots`;
-  }
-}
-
-/* =========================================================
-   PULL
-========================================================= */
-function doPull(){
-  if(spinning) return;
-  const startCredits = credits;
-  if(startCredits <= 0){
-    const warn = document.getElementById("warnBanner");
-    warn.textContent = "Enter your Credits above before pulling.";
-    warn.classList.add("show");
-    return;
-  }
-  document.getElementById("warnBanner").classList.remove("show");
-  spinning = true;
-  document.getElementById("pullBtn").disabled = true;
-
-  const loadout = generateLoadout(startCredits);
-  lastLoadout = loadout;
-
-  // Weapon reel
-  const spinWeapons = randomSpinList(WEAPONS, 22, w => weaponItemHTML(w, false));
-  spinReel("weaponTrack","weaponWindow", ITEM_H, spinWeapons, weaponItemHTML(loadout.weapon, true), 1500);
-
-  // Ability reels (staggered)
-  const isAstra = !!loadout.agent.isAstra;
-  [0,1,2].forEach((slot, idx)=>{
-    setTimeout(()=>{
-      const agentAbilities = loadout.agent.abilities;
-      const spinAb = [];
-      if(isAstra){
-        const ab = agentAbilities[slot];
-        for(let i=0;i<14;i++){
-          spinAb.push(astraAbilityItemHTML(ab, Math.floor(Math.random()*(ab.charges+1))));
-        }
-      } else {
-        for(let i=0;i<14;i++){
-          const pick = Math.random() < 0.5 ? null : weightedPick(agentAbilities);
-          spinAb.push(abilityItemHTML(pick, false));
-        }
-      }
-      const finalHTML = isAstra
-        ? astraAbilityItemHTML(agentAbilities[slot], loadout.boughtAbility[slot])
-        : (loadout.boughtAbility[slot] ? abilityItemHTML(agentAbilities[slot], true) : abilityItemHTML(null, false));
-      spinReel(`abilityTrack${slot}`, `abilityWindow${slot}`, MINI_H, spinAb, finalHTML, 1200 + idx*250);
-    }, 250 + idx*150);
-  });
-
-  // Shield reel
-  setTimeout(()=>{
-    const spinShields = randomSpinList(SHIELDS, 16, s => shieldItemHTML(s, false));
-    spinReel("shieldTrack","shieldWindow", ITEM_H, spinShields, shieldItemHTML(loadout.shield, true), 1900,
-      ()=>{
-        winSound();
-        updateSummary(loadout, startCredits);
-        spinning = false;
-        document.getElementById("pullBtn").disabled = false;
+    function spinReel(trackId, windowId, itemHeight, spinItemsHTML, finalItemHTML, duration, onDone) {
+      const track = document.getElementById(trackId);
+      const win = document.getElementById(windowId);
+      win.classList.remove("landed");
+      const N = spinItemsHTML.length;
+      track.style.transition = "none";
+      track.style.transform = "translateY(0px)";
+      track.innerHTML = spinItemsHTML.join("") + finalItemHTML;
+      // force reflow
+      void track.offsetHeight;
+      const targetY = -(itemHeight * N);
+      requestAnimationFrame(() => {
+        track.style.transition = `transform ${duration}ms cubic-bezier(.12,.72,.15,1)`;
+        track.style.transform = `translateY(${targetY}px)`;
       });
-  }, 500);
-}
+      const tickInterval = setInterval(tickSound, 90);
+      setTimeout(() => {
+        clearInterval(tickInterval);
+        win.classList.add("landed");
+        clunkSound();
+        if (onDone) onDone();
+      }, duration + 20);
+    }
 
-/* =========================================================
-   CREDITS INPUT / QUICK CHIPS
-========================================================= */
-function setCredits(v){
-  credits = Math.max(0, Math.min(99999, Math.round(v)));
-  document.getElementById("creditsInput").value = credits === 0 ? "" : credits;
-  document.getElementById("creditsBalance").textContent = credits.toLocaleString();
-}
-document.getElementById("creditsInput").addEventListener("input", (e)=>{
-  setCredits(parseInt(e.target.value)||0);
-});
-document.querySelectorAll(".chip").forEach(chip=>{
-  chip.addEventListener("click", ()=>{
-    setCredits(credits + parseInt(chip.dataset.add));
-  });
-});
-document.getElementById("resetBtn").addEventListener("click", ()=>{
-  setCredits(0);
-  lastLoadout = null;
-  clearReels();
-  updateSummary(null, 0);
-  document.getElementById("warnBanner").classList.remove("show");
-});
-document.getElementById("pullBtn").addEventListener("click", doPull);
+    function randomSpinList(pool, count, mapFn) {
+      const arr = [];
+      for (let i = 0; i < count; i++) { arr.push(mapFn(weightedPick(pool))); }
+      return arr;
+    }
 
-/* =========================================================
-   SOUND TOGGLE
-========================================================= */
-document.getElementById("soundBtn").addEventListener("click", ()=>{
-  soundOn = !soundOn;
-  document.getElementById("soundBtn").textContent = soundOn ? "🔊 Sound On" : "🔇 Sound Off";
-});
+    function clearReels() {
+      ["weaponTrack", "abilityTrack0", "abilityTrack1", "abilityTrack2", "shieldTrack"].forEach(id => {
+        document.getElementById(id).innerHTML = "";
+      });
+      ["weaponWindow", "abilityWindow0", "abilityWindow1", "abilityWindow2", "shieldWindow"].forEach(id => {
+        document.getElementById(id).classList.remove("landed");
+      });
+    }
 
-/* =========================================================
-   KEYBOARD SHORTCUTS
-========================================================= */
-document.addEventListener("keydown", (e)=>{
-  if(document.activeElement.tagName === "INPUT") return;
-  if(e.code === "Space"){ e.preventDefault(); if(document.getElementById("page-buy").classList.contains("active")) doPull(); }
-  if(e.key === "r" || e.key === "R"){ document.getElementById("resetBtn").click(); }
-  if(e.key === "m" || e.key === "M"){ document.getElementById("soundBtn").click(); }
-});
+    /* =========================================================
+       SUMMARY BAR
+    ========================================================= */
+    function updateSummary(loadout, startCredits) {
+      document.getElementById("sumWeapon").textContent = loadout ? loadout.weapon.name : "—";
+      let abilitiesText;
+      if (loadout && loadout.agent.isAstra) {
+        const totalCharges = loadout.agent.abilities.reduce((s, ab) => s + ab.charges, 0);
+        const securedTotal = loadout.boughtAbility.reduce((s, c) => s + c, 0);
+        abilitiesText = `${securedTotal}/${totalCharges} ★ (${loadout.starsInfo.totalStars}/${loadout.agent.stars.total} Stars)`;
+      } else if (loadout) {
+        const realGroups = loadout.abilityGroups.filter(Boolean);
+        const securedCount = loadout.abilityGroups.filter((g, i) => g && loadout.boughtAbility[i] > 0).length;
+        abilitiesText = `${securedCount}/${realGroups.length} Secured`;
+      } else {
+        abilitiesText = "0/3 Secured";
+      }
+      document.getElementById("sumAbilities").textContent = abilitiesText;
+      document.getElementById("sumShield").textContent = loadout ? loadout.shield.name : "—";
+      document.getElementById("sumStart").textContent = fmt(startCredits);
+      document.getElementById("sumSpent").textContent = fmt(loadout ? loadout.spent : 0);
+      const leftEl = document.getElementById("sumLeft");
+      const left = loadout ? loadout.remaining : startCredits;
+      leftEl.textContent = fmt(left);
+      leftEl.classList.toggle("neg", left < 0);
 
-/* =========================================================
-   NAV
-========================================================= */
-document.querySelectorAll(".nav-tab").forEach(tab=>{
-  tab.addEventListener("click", ()=>{
-    document.querySelectorAll(".nav-tab").forEach(t=>t.classList.remove("active"));
-    tab.classList.add("active");
-    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-    document.getElementById("page-"+tab.dataset.page).classList.add("active");
-  });
-});
+      const pill = document.getElementById("statusPill");
+      const title = document.getElementById("statusTitle");
+      const sub = document.getElementById("statusSub");
+      if (!loadout) {
+        pill.className = "status-pill full"; title.textContent = "No Pull Yet"; sub.textContent = "Enter Credits & Pull";
+      } else if (loadout.emptySlots === 0) {
+        pill.className = "status-pill full"; title.textContent = "Full Loadout"; sub.textContent = "0 empty slots";
+      } else if (loadout.emptySlots >= 4) {
+        pill.className = "status-pill empty"; title.textContent = "Bare Buy"; sub.textContent = `${loadout.emptySlots} empty slots`;
+      } else {
+        pill.className = "status-pill partial"; title.textContent = "Partial Loadout"; sub.textContent = `${loadout.emptySlots} empty slots`;
+      }
+    }
 
-/* =========================================================
-   AGENT ROULETTE
-========================================================= */
-const A_ITEM_H = 132;
-let agentSpinning = false;
+    /* =========================================================
+       PULL
+    ========================================================= */
+    function doPull() {
+      if (spinning) return;
+      const rawValue = document.getElementById("creditsInput").value;
+      const warn = document.getElementById("warnBanner");
 
-function agentCardHTML(agent, dim){
-  return `<div class="a-card ${dim?'':''}">
+      // Empty or genuinely invalid input (not just "0") — never generate
+      // a loadout off a NaN/undefined Credits value.
+      if (rawValue === "" || !Number.isFinite(Number(rawValue))) {
+        warn.textContent = "Enter your Credits first.";
+        warn.classList.add("show");
+        return;
+      }
+
+      const startCredits = getAvailableCredits();
+      if (!Number.isFinite(startCredits) || startCredits <= 0) {
+        warn.textContent = "Enter your Credits above before pulling.";
+        warn.classList.add("show");
+        return;
+      }
+      credits = startCredits; // keep global state in sync with the validated read
+      warn.classList.remove("show");
+      spinning = true;
+      document.getElementById("pullBtn").disabled = true;
+
+      const loadout = generateLoadout(startCredits);
+      lastLoadout = loadout;
+
+      // Weapon reel
+      const spinWeapons = randomSpinList(WEAPONS, 22, w => weaponItemHTML(w, false));
+      spinReel("weaponTrack", "weaponWindow", ITEM_H, spinWeapons, weaponItemHTML(loadout.weapon, true), 1500);
+
+      // Ability reels (staggered)
+      const isAstra = !!loadout.agent.isAstra;
+      [0, 1, 2].forEach((slot, idx) => {
+        setTimeout(() => {
+          const agentAbilities = loadout.agent.abilities;
+          const spinAb = [];
+          if (isAstra) {
+            const ab = agentAbilities[slot];
+            for (let i = 0; i < 14; i++) {
+              spinAb.push(astraAbilityItemHTML(ab, Math.floor(Math.random() * (ab.charges + 1))));
+            }
+          } else {
+            const realGroups = loadout.abilityGroups.filter(Boolean);
+            for (let i = 0; i < 14; i++) {
+              if (realGroups.length === 0 || Math.random() < 0.5) {
+                spinAb.push(abilityItemHTML(null, 0));
+              } else {
+                const g = weightedPick(realGroups);
+                const q = 1 + Math.floor(Math.random() * g.charges);
+                spinAb.push(abilityItemHTML(g, q));
+              }
+            }
+          }
+          const finalHTML = isAstra
+            ? astraAbilityItemHTML(agentAbilities[slot], loadout.boughtAbility[slot])
+            : abilityItemHTML(loadout.abilityGroups[slot], loadout.boughtAbility[slot]);
+          spinReel(`abilityTrack${slot}`, `abilityWindow${slot}`, MINI_H, spinAb, finalHTML, 1200 + idx * 250);
+        }, 250 + idx * 150);
+      });
+
+      // Shield reel
+      setTimeout(() => {
+        const spinShields = randomSpinList(SHIELDS, 16, s => shieldItemHTML(s, false));
+        spinReel("shieldTrack", "shieldWindow", ITEM_H, spinShields, shieldItemHTML(loadout.shield, true), 1900,
+          () => {
+            winSound();
+            updateSummary(loadout, startCredits);
+            spinning = false;
+            document.getElementById("pullBtn").disabled = false;
+          });
+      }, 500);
+    }
+
+    /* =========================================================
+       CREDITS INPUT / QUICK CHIPS
+    ========================================================= */
+    // Never let NaN/undefined/null/"" reach a calculation — always fall
+    // back to a safe, finite number.
+    function safeNumber(value) {
+      const n = Number(value);
+      return Number.isFinite(n) ? n : 0;
+    }
+    // The single source of truth for "how many Credits does the player
+    // have right now" — reads straight from the input and sanitizes it.
+    function getAvailableCredits() {
+      const el = document.getElementById("creditsInput");
+      return safeNumber(el ? el.value : 0) < 0 ? 0 : Math.floor(safeNumber(el ? el.value : 0));
+    }
+    function setCredits(v) {
+      credits = Math.max(0, Math.min(99999, Math.round(safeNumber(v))));
+      document.getElementById("creditsInput").value = credits;
+      document.getElementById("creditsBalance").textContent = credits.toLocaleString();
+    }
+    document.getElementById("creditsInput").addEventListener("input", (e) => {
+      setCredits(parseInt(e.target.value) || 0);
+    });
+    document.querySelectorAll(".chip[data-add]").forEach(chip => {
+      chip.addEventListener("click", () => {
+        setCredits(credits + parseInt(chip.dataset.add));
+      });
+    });
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      setCredits(0);
+      lastLoadout = null;
+      clearReels();
+      updateSummary(null, 0);
+      document.getElementById("warnBanner").classList.remove("show");
+    });
+    document.getElementById("pullBtn").addEventListener("click", doPull);
+
+    /* =========================================================
+       BUY STYLE / GAMBLE MODE SELECTOR
+    ========================================================= */
+    document.querySelectorAll(".mode-chip").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".mode-chip").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        buyMode = btn.dataset.mode;
+      });
+    });
+
+    /* =========================================================
+       SOUND TOGGLE
+    ========================================================= */
+    document.getElementById("soundBtn").addEventListener("click", () => {
+      soundOn = !soundOn;
+      document.getElementById("soundBtn").textContent = soundOn ? "🔊 Sound On" : "🔇 Sound Off";
+    });
+
+    /* =========================================================
+       KEYBOARD SHORTCUTS
+    ========================================================= */
+    document.addEventListener("keydown", (e) => {
+      if (document.activeElement.tagName === "INPUT") return;
+      if (e.code === "Space") { e.preventDefault(); if (document.getElementById("page-buy").classList.contains("active")) doPull(); }
+      if (e.key === "r" || e.key === "R") { document.getElementById("resetBtn").click(); }
+      if (e.key === "m" || e.key === "M") { document.getElementById("soundBtn").click(); }
+    });
+
+    /* =========================================================
+       NAV
+    ========================================================= */
+    document.querySelectorAll(".nav-tab").forEach(tab => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+        document.getElementById("page-" + tab.dataset.page).classList.add("active");
+      });
+    });
+
+    /* =========================================================
+       AGENT ROULETTE
+    ========================================================= */
+    const A_ITEM_H = 132;
+    let agentSpinning = false;
+
+    function agentCardHTML(agent, dim) {
+      return `<div class="a-card ${dim ? '' : ''}">
     <div class="a-portrait ${agent.bd}" style="color:${roleColorVar(agent.role)}">${roleBadge(agent.name[0])}</div>
     <div>
       <div class="a-name">${agent.name}</div>
       <span class="a-role ${agent.cls}">${agent.role}</span>
     </div>
   </div>`;
-}
+    }
 
-function renderRouletteStatic(){
-  const track = document.getElementById("rouletteTrack");
-  track.style.transition = "none";
-  track.style.transform = "translateY(0px)";
-  track.innerHTML = AGENTS.slice(0,4).map(a=>agentCardHTML(a)).join("");
-}
-renderRouletteStatic();
+    function renderRouletteStatic() {
+      const track = document.getElementById("rouletteTrack");
+      track.style.transition = "none";
+      track.style.transform = "translateY(0px)";
+      track.innerHTML = AGENTS.slice(0, 4).map(a => agentCardHTML(a)).join("");
+    }
+    renderRouletteStatic();
 
-function doSpinAgents(){
-  if(agentSpinning) return;
-  agentSpinning = true;
-  document.getElementById("spinBtn").disabled = true;
-  document.getElementById("resultCard").classList.remove("show");
+    function doSpinAgents() {
+      if (agentSpinning) return;
+      agentSpinning = true;
+      document.getElementById("spinBtn").disabled = true;
+      document.getElementById("resultCard").classList.remove("show");
 
-  const SPIN_MS = 6200;
-  const winner = AGENTS[Math.floor(Math.random()*AGENTS.length)];
-  const track = document.getElementById("rouletteTrack");
-  const spinList = [];
-  const TRAIL_CARDS = 6; // cards rendered *after* the winner so the reel keeps looking continuous
-                          // as it settles instead of running out of cards and going blank
-  for(let i=0;i<58;i++){ spinList.push(agentCardHTML(AGENTS[Math.floor(Math.random()*AGENTS.length)])); }
-  const winnerIndex = spinList.length;
-  spinList.push(agentCardHTML(winner));
-  for(let i=0;i<TRAIL_CARDS;i++){ spinList.push(agentCardHTML(AGENTS[Math.floor(Math.random()*AGENTS.length)])); }
+      const SPIN_MS = 6200;
+      const winner = AGENTS[Math.floor(Math.random() * AGENTS.length)];
+      const track = document.getElementById("rouletteTrack");
+      const spinList = [];
+      const TRAIL_CARDS = 6; // cards rendered *after* the winner so the reel keeps looking continuous
+      // as it settles instead of running out of cards and going blank
+      for (let i = 0; i < 58; i++) { spinList.push(agentCardHTML(AGENTS[Math.floor(Math.random() * AGENTS.length)])); }
+      const winnerIndex = spinList.length;
+      spinList.push(agentCardHTML(winner));
+      for (let i = 0; i < TRAIL_CARDS; i++) { spinList.push(agentCardHTML(AGENTS[Math.floor(Math.random() * AGENTS.length)])); }
 
-  track.style.transition = "none";
-  track.style.transform = "translateY(0px)";
-  track.innerHTML = spinList.join("");
-  void track.offsetHeight;
+      track.style.transition = "none";
+      track.style.transform = "translateY(0px)";
+      track.innerHTML = spinList.join("");
+      void track.offsetHeight;
 
-  const win = document.getElementById("rouletteWindow");
-  const centerOffset = (win.clientHeight/2) - (A_ITEM_H/2);
-  const targetY = -(A_ITEM_H * winnerIndex) + centerOffset;
+      const win = document.getElementById("rouletteWindow");
+      const centerOffset = (win.clientHeight / 2) - (A_ITEM_H / 2);
+      const targetY = -(A_ITEM_H * winnerIndex) + centerOffset;
 
-  requestAnimationFrame(()=>{
-    track.style.transition = `transform ${SPIN_MS}ms cubic-bezier(.08,.65,.12,1)`;
-    track.style.transform = `translateY(${targetY}px)`;
-  });
+      requestAnimationFrame(() => {
+        track.style.transition = `transform ${SPIN_MS}ms cubic-bezier(.08,.65,.12,1)`;
+        track.style.transform = `translateY(${targetY}px)`;
+      });
 
-  let tickDelay = 70;
-  function scheduleTick(){
-    tickSound();
-    tickDelay = Math.min(tickDelay * 1.055, 260);
-    if(tickDelay < 258) tickTimeout = setTimeout(scheduleTick, tickDelay);
-  }
-  let tickTimeout = setTimeout(scheduleTick, tickDelay);
+      let tickDelay = 70;
+      function scheduleTick() {
+        tickSound();
+        tickDelay = Math.min(tickDelay * 1.055, 260);
+        if (tickDelay < 258) tickTimeout = setTimeout(scheduleTick, tickDelay);
+      }
+      let tickTimeout = setTimeout(scheduleTick, tickDelay);
 
-  setTimeout(()=>{
-    clearTimeout(tickTimeout);
-    winSound();
-    showAgentResult(winner);
-    agentSpinning = false;
-    document.getElementById("spinBtn").disabled = false;
-  }, SPIN_MS + 40);
-}
+      setTimeout(() => {
+        clearTimeout(tickTimeout);
+        winSound();
+        showAgentResult(winner);
+        agentSpinning = false;
+        document.getElementById("spinBtn").disabled = false;
+      }, SPIN_MS + 40);
+    }
 
-function showAgentResult(agent){
-  document.getElementById("resultPortrait").innerHTML = roleBadge(agent.name[0]);
-  document.getElementById("resultPortrait").style.color = roleColorVar(agent.role);
-  document.getElementById("resultName").textContent = agent.name;
-  const roleEl = document.getElementById("resultRole");
-  roleEl.textContent = agent.role;
-  roleEl.className = "role-tag " + agent.cls;
-  document.getElementById("resultDesc").textContent = agent.desc;
-  document.getElementById("resultCard").classList.add("show");
-  document.getElementById("resultCard").dataset.agentId = agent.id;
-}
+    function showAgentResult(agent) {
+      document.getElementById("resultPortrait").innerHTML = roleBadge(agent.name[0]);
+      document.getElementById("resultPortrait").style.color = roleColorVar(agent.role);
+      document.getElementById("resultName").textContent = agent.name;
+      const roleEl = document.getElementById("resultRole");
+      roleEl.textContent = agent.role;
+      roleEl.className = "role-tag " + agent.cls;
+      document.getElementById("resultDesc").textContent = agent.desc;
+      document.getElementById("resultCard").classList.add("show");
+      document.getElementById("resultCard").dataset.agentId = agent.id;
+    }
 
-document.getElementById("spinBtn").addEventListener("click", doSpinAgents);
-document.getElementById("spinAgainBtn").addEventListener("click", doSpinAgents);
-document.getElementById("spinResetBtn").addEventListener("click", ()=>{
-  document.getElementById("resultCard").classList.remove("show");
-  renderRouletteStatic();
-});
-document.getElementById("useAgentBtn").addEventListener("click", ()=>{
-  const id = document.getElementById("resultCard").dataset.agentId;
-  if(!id) return;
-  selectedAgentId = id;
-  renderAgentHeader();
-  document.getElementById("agentSelect").value = id;
-  clearReels();
-  updateSummary(null, credits);
-  document.querySelector('.nav-tab[data-page="buy"]').click();
-});
+    document.getElementById("spinBtn").addEventListener("click", doSpinAgents);
+    document.getElementById("spinAgainBtn").addEventListener("click", doSpinAgents);
+    document.getElementById("spinResetBtn").addEventListener("click", () => {
+      document.getElementById("resultCard").classList.remove("show");
+      renderRouletteStatic();
+    });
+    document.getElementById("useAgentBtn").addEventListener("click", () => {
+      const id = document.getElementById("resultCard").dataset.agentId;
+      if (!id) return;
+      selectedAgentId = id;
+      renderAgentHeader();
+      document.getElementById("agentSelect").value = id;
+      clearReels();
+      updateSummary(null, credits);
+      document.querySelector('.nav-tab[data-page="buy"]').click();
+    });
 
-/* =========================================================
-   INIT
-========================================================= */
-populateAgentSelect();
-renderAgentHeader();
-setCredits(0);
-updateSummary(null, 0);
-</script>
+    /* =========================================================
+       INIT
+    ========================================================= */
+    populateAgentSelect();
+    renderAgentHeader();
+    setCredits(0);
+    updateSummary(null, 0);
+  </script>
 </body>
+
 </html>

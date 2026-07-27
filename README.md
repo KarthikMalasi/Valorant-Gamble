@@ -1,12 +1,16 @@
 VALORANT GAMBLE 🎰
+A fan-made Valorant-inspired random buy generator and Agent Roulette designed to make your next Valorant game more unpredictable and fun.
+Enter your available Credits, choose your Agent, and let the Buy Gamble decide what you should purchase. You can also spin the Agent Roulette to randomly select an Agent to play.
+
+## 🚀 Live Demo
+
+👉 **[Try VALORANT GAMBLE](https://your-netlify-site.netlify.app/)**
 
 ## 📸 Preview
 
 ![VALORANT Gamble Preview](./preview.png)
 
-A fan-made Valorant-inspired random buy generator and Agent Roulette designed to make your next Valorant game more unpredictable and fun.
 
-Enter your available Credits, choose your Agent, and let the Buy Gamble decide what you should purchase. You can also spin the Agent Roulette to randomly select an Agent to play.
 
 ⚠️ This is a fan-made project and is not affiliated with or endorsed by Riot Games.
 
